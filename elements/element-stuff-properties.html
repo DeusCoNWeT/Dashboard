@@ -56,6 +56,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _displayBasicProperties(target) {
+        
         for (let i = 0; i < this._stuff.length; i++) {
           let prop = this._stuff[i];
           let el = this.root.querySelector(`[name=${prop}]`);
@@ -92,6 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _displayPropsOrAttributes(target, propNames, isAttribute) {
+
         for (let i = 0; i < propNames.length; i++) {
           let name = propNames[i];
           // Ignore things that start with a _. Polymer converts every property
@@ -100,6 +102,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           if (name.indexOf('_') === 0) {
             continue;
           }
+          
+          var componentName = target.attributes.class.ownerElement.localName;
+          var comment = this.writeComments(name,componentName);
+
+          if(comment != ""){
+            let par = document.createElement('p');
+            par.textContent = name + ": " +comment;                              // here we will insert the comment, that describes de variable, above it 
+            par.style.color = "green";
+            par.style.fontSize = "13px";
+            this.$.bonus.appendChild(par);
+          }
+          
 
           let label = document.createElement('label');
           label.textContent = name;
@@ -126,6 +140,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           this.$.bonus.appendChild(input);
         }
+      }
+
+      writeComments (nameOfVariable,nameOfComponent) {
+
+        var file = "../bower_components/"+ nameOfComponent +"/analysis.jason";
+        
+        var rawFile = new XMLHttpRequest();
+        var textRead = "";
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function () {
+            if(rawFile.readyState === 4) {
+                if(rawFile.status === 200 || rawFile.status == 0) {
+                    var allText = rawFile.responseText;
+                    
+                    var n = allText.indexOf (nameOfVariable, 0);               //searching the position of the name of the variable that we are looking for
+                    if(n != -1){
+                        var position = allText.indexOf ("description", n);           //searching the position where is the next description
+                        position = allText.indexOf ("\"", position+1);               //passing the first " character after the word description
+                        position = allText.indexOf ("\"", position+1);               //passing the second " character (where the comment starts) 
+                        var position2 = allText.indexOf ("\"", position+1);          //position where the comment ends
+                        textRead = allText.substr(position+1 ,position2-position-1);  //variable for save all the characters of the comment
+                    }
+                }
+            }
+        }
+        rawFile.send(null);
+        return textRead;
       }
     }
     customElements.define(ElementProperties.is, ElementProperties);
