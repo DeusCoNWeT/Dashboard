@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "hello-world": "alvarohj96/easyWebComponent#*",
+    "div-component": "alvarohj96/divComponent#*",
+    "input-component": "alvarohj96/inputComponet#*",
     "iron-icons": "PolymerElements/iron-icons#^2.0.0",
     "iron-icon": "PolymerElements/iron-icon#^2.0.0",
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
