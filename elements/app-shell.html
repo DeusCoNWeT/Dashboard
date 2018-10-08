@@ -26,6 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="help-view.html">
 <link rel="import" href="tree-view.html">
 <link rel="import" href="element-view.html">
+<link rel="import" href="conexion-view.html">
 <link rel="import" href="canvas-view.html">
 <link rel="import" href="canvas-controls.html">
 
@@ -202,6 +203,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="drawer">
         <canvas-controls id="canvasControls"></canvas-controls>
         <element-view id="elementView"></element-view>
+        <conexion-view id="conexionView"></conexion-view>
         <palette-view id="paletteView"></palette-view>
       </div>
     </div>
@@ -367,6 +369,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let el = this.activeElement ? this.activeElement : this.$.viewContainer;
         // Display its properties in the side view.
         this.$.elementView.display(el);
+        this.$.conexionView.recomputeElements(this.$.viewContainer,el);
         // Highlight it in the tree.
         this.$.treeView.recomputeTree(this.$.viewContainer, el);
       }

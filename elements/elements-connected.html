@@ -1,0 +1,44 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="element-stuff-base.html">
+<link rel="import" href="element-stuff-shared-styles.html">
+
+<dom-module id="elements-connected">
+  <template strip-whitespace>
+    <style include="element-stuff-shared-styles"></style>
+    <button>Press to add a connection</button>
+    <div id="elementsConnected"></div>
+  </template>
+  <script>
+    class ElementsConnected extends ElementStuffBase(Polymer.Element) {
+      static get is() { return 'elements-connected'; }
+      recomputeElements(element,el) {
+        this.$.elementsConnected.innerHTML = '';
+      }
+
+      _makeButton(tag, id, index) {
+        let aButton = document.createElement('button');
+        aButton.dataset.index = index;
+        let aTag = document.createElement('span');
+        aTag.className = 'tag';
+        aTag.textContent = tag;
+        let aId = document.createElement('span');
+        aId.className = 'id';
+        aId.textContent = id;
+        aButton.appendChild(aTag);
+        aButton.appendChild(aId);
+        return aButton;
+      }
+    }
+    customElements.define(ElementsConnected.is, ElementsConnected);
+  </script>
+</dom-module>
