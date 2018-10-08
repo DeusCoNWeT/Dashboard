@@ -21,23 +21,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class ElementsConnected extends ElementStuffBase(Polymer.Element) {
       static get is() { return 'elements-connected'; }
-      recomputeElements(element,el) {
-        this.$.elementsConnected.innerHTML = '';
-      }
-
-      _makeButton(tag, id, index) {
-        let aButton = document.createElement('button');
-        aButton.dataset.index = index;
-        let aTag = document.createElement('span');
-        aTag.className = 'tag';
-        aTag.textContent = tag;
-        let aId = document.createElement('span');
-        aId.className = 'id';
-        aId.textContent = id;
-        aButton.appendChild(aTag);
-        aButton.appendChild(aId);
-        return aButton;
-      }
+      // recomputeElements(element,el) {
+      //   this.$.elementsConnected.innerHTML = '';
+      // }
     }
     customElements.define(ElementsConnected.is, ElementsConnected);
   </script>

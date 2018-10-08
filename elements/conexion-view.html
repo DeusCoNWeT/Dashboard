@@ -48,13 +48,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return {
           selected: {
             type: String,
-            value: 'addConexions'
+            value: 'currentConexions'
           }
         }
       }
-      recomputeElements(element,el) {
-        this.$.propertiesContainer.recomputeElements(element,el);
-      }
+      // recomputeElements(element,el) {
+      //   this.$.propertiesContainer.recomputeElements(element,el);
+      // }
     }
     customElements.define(ConexionView.is, ConexionView);
   </script>
