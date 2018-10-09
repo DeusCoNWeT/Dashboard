@@ -11,19 +11,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="element-stuff-base.html">
 <link rel="import" href="element-stuff-shared-styles.html">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <dom-module id="elements-connected">
+
   <template strip-whitespace>
     <style include="element-stuff-shared-styles"></style>
-    <button>Press to add a connection</button>
-    <div id="elementsConnected"></div>
+    <label for="filterElement1">1st element</label>
+    <input list="listElement1" placeholder="Filter Current Elements" name="filterElement1">
+    <datalist id="listElement1">
+      
+    </datalist>
+
+    <label for="filterVariable">Variable</label>
+    <input list="listVariable" placeholder="Filter Variable" name="filterVariable">
+    <datalist id="listVariable">
+       
+    </datalist>
+
+    <label for="filterElement2">2nd element</label>
+    <input list="listElement2" placeholder="Filter Current Elements" name="filterElement2">
+    <datalist id="listElement2">
+        
+    </datalist>
+
+    <input type="submit">
   </template>
   <script>
-    class ElementsConnected extends ElementStuffBase(Polymer.Element) {
+    class ElementsConnected extends Polymer.Element {
       static get is() { return 'elements-connected'; }
-      // recomputeElements(element,el) {
-      //   this.$.elementsConnected.innerHTML = '';
-      // }
+
+      updateElementsList1(items,el) {
+        this.$.listElement1.innerHTML ='';
+        for (let i = 0; i < items.length; i++) {
+          var option = document.createElement("option");
+          option.setAttribute("value", items[i].id);
+          this.$.listElement1.appendChild(option);
+        }
+      }
+
+      updateElementsList2(items,el) {
+        this.$.listElement2.innerHTML ='';
+        for (let i = 0; i < items.length; i++) {
+          var option = document.createElement("option");
+          option.setAttribute("value", items[i].id);
+          this.$.listElement2.appendChild(option);
+        }
+      }
     }
     customElements.define(ElementsConnected.is, ElementsConnected);
   </script>
