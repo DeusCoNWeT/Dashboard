@@ -49,11 +49,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           selected: {
             type: String,
             value: 'addConexions'
-          }
+          },
+          itemsList: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          }          
         }
       }
 
       recomputeElements(items,el) {
+        // var a = this.$.itemsList.value;
+        this.set('itemsList', "hola");
+        // console.log(a);
         this.$.propertiesContainer.updateElementsList1(items,el);
         this.$.propertiesContainer.updateElementsList2(items,el);
       }

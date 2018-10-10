@@ -78,18 +78,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class TreeView extends Polymer.Element {
       static get is() { return 'tree-view'; }
-      static get properties() {
-        return {
-          items: {
-            type: Array
-          }
-        }
-      }
+      
       ready() {
         super.ready();
         this.$.tree.addEventListener('click', this.findElement.bind(this))
       }
-
+      getItems() {
+        return this.items;
+      }
       recomputeTree(parent, active) {
         this.$.tree.innerHTML = '';
         // Since we can't add a pojo to each button, generate a new index for

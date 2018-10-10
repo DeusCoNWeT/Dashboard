@@ -17,30 +17,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template strip-whitespace>
     <style include="element-stuff-shared-styles"></style>
     <label for="filterElement1">1st element</label>
-    <input list="listElement1" placeholder="Filter Current Elements" name="filterElement1">
+    <input list="listElement1" placeholder="Filter Current Elements" id="filterElement1">
     <datalist id="listElement1">
       
     </datalist>
 
     <label for="filterVariable">Variable</label>
-    <input list="listVariable" placeholder="Filter Variable" name="filterVariable">
+    <input list="listVariable" placeholder="Filter Variable" id="filterVariable">
     <datalist id="listVariable">
        
     </datalist>
 
     <label for="filterElement2">2nd element</label>
-    <input list="listElement2" placeholder="Filter Current Elements" name="filterElement2">
+    <input list="listElement2" placeholder="Filter Current Elements" id="filterElement2">
     <datalist id="listElement2">
         
     </datalist>
 
-    <input type="submit">
+    <input id="send" type="submit" value="Connect">
   </template>
   <script>
     class ElementsConnected extends Polymer.Element {
       static get is() { return 'elements-connected'; }
 
+      ready() {
+        super.ready();
+        this.$.filterElement1.addEventListener('input', this.findElement.bind(this));
+      }
+      findElement(event) {
+        var a = this.$.filterElement1.value;
+        console.log(a);
+      }
       updateElementsList1(items,el) {
+        //console.log(items); //.properties
         this.$.listElement1.innerHTML ='';
         for (let i = 0; i < items.length; i++) {
           var option = document.createElement("option");
@@ -57,6 +66,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.listElement2.appendChild(option);
         }
       }
+
+      // displayVariables(el){
+        
+      // }
     }
     customElements.define(ElementsConnected.is, ElementsConnected);
   </script>

@@ -203,7 +203,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="drawer">
         <canvas-controls id="canvasControls"></canvas-controls>
         <element-view id="elementView"></element-view>
-        <conexion-view id="conexionView"></conexion-view>
+        <conexion-view id="conexionView" itemsList="{{itemsList}}"></conexion-view>
         <palette-view id="paletteView"></palette-view>
       </div>
     </div>
@@ -371,6 +371,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.elementView.display(el);
         // Highlight it in the tree.
         var items = this.$.treeView.recomputeTree(this.$.viewContainer, el);
+        this.itemsList = "aaaa";
         this.$.conexionView.recomputeElements(items,el);
       }
 
