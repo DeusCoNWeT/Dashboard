@@ -18,44 +18,100 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="element-stuff-shared-styles"></style>
     <label for="filterElement1">1st element</label>
     <input list="listElement1" placeholder="Filter Current Elements" id="filterElement1">
-    <datalist id="listElement1">
-      
-    </datalist>
+    <datalist id="listElement1"></datalist>
 
-    <label for="filterVariable">Variable</label>
-    <input list="listVariable" placeholder="Filter Variable" id="filterVariable">
-    <datalist id="listVariable">
-       
-    </datalist>
+    <label for="filterVariable1">Var. 1st el.</label>
+    <input list="listVariable1" placeholder="Filter Variable" id="filterVariable1">
+    <datalist id="listVariable1"></datalist>
 
     <label for="filterElement2">2nd element</label>
     <input list="listElement2" placeholder="Filter Current Elements" id="filterElement2">
-    <datalist id="listElement2">
-        
-    </datalist>
+    <datalist id="listElement2"></datalist>
 
-    <input id="send" type="submit" value="Connect">
+    <label for="filterVariable2">Var. 2nd el.</label>
+    <input list="listVariable2" placeholder="Filter Variable" id="filterVariable2">
+    <datalist id="listVariable2"></datalist>
+
+    <input type="button" id="send" value="Connect">
   </template>
   <script>
     class ElementsConnected extends Polymer.Element {
       static get is() { return 'elements-connected'; }
+      static get properties() {
+        return {
+          itemsList: {
+            type: Array,
+            value: []
+          }        
+        }
+      }
 
       ready() {
         super.ready();
-        this.$.filterElement1.addEventListener('input', this.findElement.bind(this));
+        this.$.filterElement1.addEventListener('input', this.findElement1.bind(this));
+        this.$.filterElement2.addEventListener('input', this.findElement2.bind(this));
+        this.$.send.addEventListener('click', this.createConexion.bind(this));
       }
-      findElement(event) {
-        var a = this.$.filterElement1.value;
-        console.log(a);
+
+      findElement1(event) {
+        var i;
+        for(i=0;i < this.itemsList.length;i++){
+          if(this.itemsList[i].id == this.$.filterElement1.value){
+            break;
+          }
+        }
+        if(i < this.itemsList.length){
+          this.$.listVariable1.innerHTML ='';
+          var a = this.itemsList[i].ref.properties;
+          for(var x=0; x < this.sizeObject(a); x++ ){
+            var option = document.createElement("option");
+            option.setAttribute("value", Object.keys(a)[x]);
+            this.$.listVariable1.appendChild(option);
+          }
+        }
       }
+
+      findElement2(event) {
+        var i;
+        for(i=0;i < this.itemsList.length;i++){
+          if(this.itemsList[i].id == this.$.filterElement2.value){
+            break;
+          }
+        }
+        if(i < this.itemsList.length){
+          this.$.listVariable2.innerHTML ='';
+          var a = this.itemsList[i].ref.properties;
+          for(var x=0; x < this.sizeObject(a); x++ ){
+            var option = document.createElement("option");
+            option.setAttribute("value", Object.keys(a)[x]);
+            this.$.listVariable2.appendChild(option);
+          }
+        }
+      }
+
+      sizeObject(obj) {
+        var size = 0;
+        for (var key in obj) {
+          if (obj.hasOwnProperty(key)) size++;
+        }
+        return size;
+      }
+
+      createConexion(event){
+        if(this.$.filterElement1.value == "" || this.$.filterElement2.value == "" ||
+          this.$.filterVariable1.value == "" || this.$.filterVariable2.value == ""){
+          alert("You have to complete all the fields of the connection");
+        }        
+      }
+
       updateElementsList1(items,el) {
-        //console.log(items); //.properties
         this.$.listElement1.innerHTML ='';
         for (let i = 0; i < items.length; i++) {
           var option = document.createElement("option");
           option.setAttribute("value", items[i].id);
           this.$.listElement1.appendChild(option);
         }
+        this.itemsList=items;
       }
 
       updateElementsList2(items,el) {
@@ -66,10 +122,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.listElement2.appendChild(option);
         }
       }
-
-      // displayVariables(el){
-        
-      // }
     }
     customElements.define(ElementsConnected.is, ElementsConnected);
   </script>

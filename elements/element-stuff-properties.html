@@ -36,6 +36,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super();
         this.stuffType = 'property';
       }
+      ready() {
+        super.ready();
+        //this.$.filterElement1.addEventListener('input', this.findElement1.bind(this));
+      }
       display(target) {
         //console.log(target);
         this._displayBasicProperties(target);
@@ -94,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _displayPropsOrAttributes(target, propNames, isAttribute) {
-
+        // console.log(propNames);
         for (let i = 0; i < propNames.length; i++) {
           let name = propNames[i];
           // Ignore things that start with a _. Polymer converts every property
@@ -102,19 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // things in here.
           if (name.indexOf('_') === 0) {
             continue;
-          }
-          
-          var componentName = target.attributes.class.ownerElement.localName;
-          var comment = this.writeComments(name,componentName);
-
-          if(comment != ""){
-            let par = document.createElement('p');
-            par.textContent = name + ": " +comment;                              // here we will insert the comment, that describes de variable, above it 
-            par.style.color = "green";
-            par.style.fontSize = "13px";
-            this.$.bonus.appendChild(par);
-          }
-          
+          }          
 
           let label = document.createElement('label');
           label.textContent = name;
@@ -140,6 +132,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             input.value = target[name] || '';
           }
           this.$.bonus.appendChild(input);
+
+          var componentName = target.attributes.class.ownerElement.localName;
+          var comment = this.writeComments(name,componentName);
+
+          if(comment != ""){
+            let button = document.createElement('button');
+            button.innerHTML= 'Info';
+            button.onclick = function(){
+              let p = document.createElement('p');
+              p.innerHTML = comment;
+              button.appendChild(p);
+            };
+            // here we will insert the comment, that describes de variable, above it 
+            // par.style.color = "green";
+            // par.style.fontSize = "13px";
+            this.$.bonus.appendChild(button);
+          }
         }
       }
 
