@@ -202,7 +202,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="drawer">
         <canvas-controls id="canvasControls"></canvas-controls>
-        <element-view id="elementView"></element-view>
+        <element-view on-connect="connect" id="elementView"></element-view>
         <conexion-view id="conexionView"></conexion-view>
         <palette-view id="paletteView"></palette-view>
       </div>
@@ -222,7 +222,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
       }
-
+      
       connectedCallback() {
         super.connectedCallback();
 
@@ -240,6 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.appControls.actionHistory = this.$.actionHistory;
         this.$.viewContainer.actionHistory = this.$.actionHistory;
 
+        this.$.conexionView.$.propertiesContainer.addEventListener('create-connection', event => this.connect(event));
         this.addEventListener('new-element', event => this.createElement(event));
         this.addEventListener('new-sample', event => this.createSample(event));
         this.addEventListener('element-updated', event => this.updateElement(event));
@@ -281,6 +282,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.addEventListener('move', event => {
           this.$.canvasControls.move(event.detail.type, event.detail.skipHistory);
         });
+      }
+
+      connect(evt) {
+        this.$.viewContainer.connectComponents(evt);
       }
 
       /*

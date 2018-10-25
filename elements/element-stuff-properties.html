@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="element-stuff-base.html">
 <link rel="import" href="element-stuff-shared-styles.html">
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
 <dom-module id="element-stuff-properties">
   <template strip-whitespace>
@@ -36,12 +37,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super();
         this.stuffType = 'property';
       }
-      ready() {
-        super.ready();
-        //this.$.filterElement1.addEventListener('input', this.findElement1.bind(this));
-      }
+      
       display(target) {
-        //console.log(target);
         this._displayBasicProperties(target);
         this.$.bonus.innerHTML = '';
 
@@ -144,9 +141,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               p.innerHTML = comment;
               button.appendChild(p);
             };
-            // here we will insert the comment, that describes de variable, above it 
-            // par.style.color = "green";
-            // par.style.fontSize = "13px";
             this.$.bonus.appendChild(button);
           }
         }

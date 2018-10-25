@@ -119,6 +119,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.addEventListener('keydown', this.onKeyDown.bind(this), true);
       }
 
+      connectComponents(event){
+        let idOrigin = event.detail.origin;
+        let idDest = event.detail.dest;
+        let var1 = event.detail.originAttr;
+        let var2 = event.detail.destAttr;
+        let comp1 = this.$.canvas.querySelector(idOrigin);
+        let comp2 = this.$.canvas.querySelector(idDest);
+        // Bind comp1.var1 to comp2.var2
+        Interconnection.bind(comp1, var1,comp2,var2);
+      }
+
       add(el) {
         this.$.canvas.appendChild(el);
       }

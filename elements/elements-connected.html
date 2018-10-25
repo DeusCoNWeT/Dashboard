@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="element-stuff-base.html">
 <link rel="import" href="element-stuff-shared-styles.html">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <dom-module id="elements-connected">
 
   <template strip-whitespace>
@@ -50,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         super.ready();
         this.$.filterElement1.addEventListener('input', this.findElement1.bind(this));
         this.$.filterElement2.addEventListener('input', this.findElement2.bind(this));
-        this.$.send.addEventListener('click', this.createConexion.bind(this));
+        this.$.send.addEventListener('click', this.createConnection.bind(this));
       }
 
       findElement1(event) {
@@ -62,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         if(i < this.itemsList.length){
           this.$.listVariable1.innerHTML ='';
-          var a = this.itemsList[i].ref.properties;
+          var a = this.itemsList[i].ref.__dataAttributes;
           for(var x=0; x < this.sizeObject(a); x++ ){
             var option = document.createElement("option");
             option.setAttribute("value", Object.keys(a)[x]);
@@ -80,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         if(i < this.itemsList.length){
           this.$.listVariable2.innerHTML ='';
-          var a = this.itemsList[i].ref.properties;
+          var a = this.itemsList[i].ref.__dataAttributes;
           for(var x=0; x < this.sizeObject(a); x++ ){
             var option = document.createElement("option");
             option.setAttribute("value", Object.keys(a)[x]);
@@ -97,11 +96,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return size;
       }
 
-      createConexion(event){
+      createConnection(event){
         if(this.$.filterElement1.value == "" || this.$.filterElement2.value == "" ||
           this.$.filterVariable1.value == "" || this.$.filterVariable2.value == ""){
           alert("You have to complete all the fields of the connection");
-        }        
+        }
+        else{
+          const info = {
+            origin: this.$.filterElement1.value,
+            originAttr: this.$.filterVariable1.value,
+            dest: this.$.filterElement2.value,
+            destAttr: this.$.filterVariable2.value,
+          }
+          var eventConnect = new CustomEvent('create-connection',{'detail': info});
+          this.dispatchEvent(eventConnect);
+
+        }
       }
 
       updateElementsList1(items,el) {
