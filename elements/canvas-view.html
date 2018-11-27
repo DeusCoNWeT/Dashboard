@@ -11,6 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 
+<script src="../bower_components/polymer-interconnection/src/interconnection.js" type="text/javascript"></script>
+
 <dom-module id="canvas-view">
   <template>
     <style>
@@ -126,6 +128,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let var2 = event.detail.destAttr;
         let comp1 = this.$.canvas.querySelector(idOrigin);
         let comp2 = this.$.canvas.querySelector(idDest);
+        console.log(idOrigin);
+        console.log(idDest);
+        console.log(comp1);
+        console.log(comp2);
         // Bind comp1.var1 to comp2.var2
         Interconnection.bind(comp1, var1,comp2,var2);
       }

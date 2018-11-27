@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="element-stuff-base.html">
 <link rel="import" href="element-stuff-shared-styles.html">
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
 <dom-module id="element-stuff-properties">
   <template strip-whitespace>
@@ -148,7 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       writeComments (nameOfVariable,nameOfComponent) {
 
-        var file = "../bower_components/"+ nameOfComponent +"/analysis.jason";
+        var file = "../bower_components/"+ nameOfComponent +"/analysis.json";
         
         var rawFile = new XMLHttpRequest();
         var textRead = "";
