@@ -1,0 +1,39 @@
+<!--
+@license
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="element-stuff-base.html">
+<link rel="import" href="element-stuff-shared-styles.html">
+
+<dom-module id="current-connection">
+
+  <template>
+    <style include="element-stuff-shared-styles">
+    #bonus {
+        font-size: 10px;
+    }
+    </style>
+    <div id="bonus"></div>
+  </template>
+  <script>
+    class CurrentConnection extends Polymer.Element {
+      static get is() { return 'current-connection'; }
+      
+      updateConnection(connection){
+        console.log(connection);
+        let p = document.createElement('p');
+        p.innerHTML="- The variable <strong>" + connection[1] + "</strong> of the component <strong>" + connection[0] +
+            "</strong> is connected with the variable <strong>" + connection[3] + "</strong> of the component <strong>" + connection[2] + "</strong>.";
+        this.$.bonus.appendChild(p);
+      }
+    }
+    customElements.define(CurrentConnection.is, CurrentConnection);
+  </script>
+</dom-module>

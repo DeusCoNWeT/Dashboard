@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="designer-tabs.html">
 <link rel="import" href="designer-tab.html">
 <link rel="import" href="elements-connected.html">
+<link rel="import" href="current-connection.html">
 
 <dom-module id="conexion-view">
   <template>
@@ -39,6 +40,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <iron-pages attr-for-selected="name" selected-attribute="visible" selected="[[selected]]">
       <elements-connected name="addConexions" id="propertiesContainer"></elements-connected>
+      <current-connection name="currentConexions" id="viewConnections"></current-connection>
     </iron-pages>
   </template>
   <script>
@@ -51,6 +53,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value: 'addConexions'
           }        
         }
+      }
+
+      addConnection (connection){
+        console.log(connection);
+        this.$.viewConnections.updateConnection(connection);
       }
 
       recomputeElements(items,el) {

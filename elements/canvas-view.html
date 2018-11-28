@@ -128,12 +128,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let var2 = event.detail.destAttr;
         let comp1 = this.$.canvas.querySelector(idOrigin);
         let comp2 = this.$.canvas.querySelector(idDest);
-        console.log(idOrigin);
-        console.log(idDest);
-        console.log(comp1);
-        console.log(comp2);
+        
         // Bind comp1.var1 to comp2.var2
         Interconnection.bind(comp1, var1,comp2,var2);
+        // Alert users of possible errors
+        window.onerror = function(error){
+          alert(error);
+        }
+        // If everything is going correctly, add the connection to current connections
+        
+        return [idOrigin, var1, idDest, var2];
       }
 
       add(el) {
