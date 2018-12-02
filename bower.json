@@ -24,36 +24,10 @@
     "polymer-interconnection": "https://github.com/DeusCoNWeT/interconnection.git#^2.0.0"
   },
   "devDependencies": {
+    "map-component":"alvarohj96/mapComponent#*",
     "hello-world": "alvarohj96/easyWebComponent#*",
     "div-component": "alvarohj96/divComponent#*",
-    "input-component": "alvarohj96/inputComponet#*",
-    "iron-icons": "PolymerElements/iron-icons#^2.0.0",
-    "iron-icon": "PolymerElements/iron-icon#^2.0.0",
-    "iron-pages": "PolymerElements/iron-pages#^2.0.0",
-    "iron-form": "PolymerElements/iron-form#^2.0.0",
-    "paper-checkbox": "PolymerElements/paper-checkbox#*",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#*",
-    "paper-input": "PolymerElements/paper-input#*",
-    "paper-listbox": "PolymerElements/paper-listbox#*",
-    "paper-radio-button": "PolymerElements/paper-radio-button#*",
-    "paper-radio-group": "PolymerElements/paper-radio-group#*",
-    "paper-slider": "PolymerElements/paper-slider#*",
-    "paper-toggle-button": "PolymerElements/paper-toggle-button#*",
-    "paper-fab": "PolymerElements/paper-fab#*",
-    "paper-button": "PolymerElements/paper-button#*",
-    "paper-badge": "PolymerElements/paper-badge#*",
-    "paper-card": "PolymerElements/paper-card#*",
-    "paper-icon-button": "PolymerElements/paper-icon-button#*",
-    "paper-item": "PolymerElements/paper-item#*",
-    "paper-menu-button": "PolymerElements/paper-menu-button#*",
-    "paper-progress": "PolymerElements/paper-progress#*",
-    "paper-spinner": "PolymerElements/paper-spinner#*",
-    "paper-tabs": "PolymerElements/paper-tabs#*",
-    "iron-ajax": "PolymerElements/iron-ajax#*",
-    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#*",
-    "iron-collapse": "PolymerElements/iron-collapse#*",
-    "iron-image": "PolymerElements/iron-image#*",
-    "vaadin-date-picker": "vaadin/vaadin-date-picker#^v2.0.0-beta2"
+    "input-component": "alvarohj96/inputComponet#*"
   },
   "subelements": {
     "iron-icons": [

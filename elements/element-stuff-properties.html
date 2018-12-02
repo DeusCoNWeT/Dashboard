@@ -153,20 +153,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var textRead = "";
         rawFile.open("GET", file, false);
         rawFile.onreadystatechange = function () {
-            if(rawFile.readyState === 4) {
-                if(rawFile.status === 200 || rawFile.status == 0) {
-                    var allText = rawFile.responseText;
-                    
-                    var n = allText.indexOf (nameOfVariable, 0);               //searching the position of the name of the variable that we are looking for
-                    if(n != -1){
-                        var position = allText.indexOf ("description", n);           //searching the position where is the next description
-                        position = allText.indexOf ("\"", position+1);               //passing the first " character after the word description
-                        position = allText.indexOf ("\"", position+1);               //passing the second " character (where the comment starts) 
-                        var position2 = allText.indexOf ("\"", position+1);          //position where the comment ends
-                        textRead = allText.substr(position+1 ,position2-position-1);  //variable for save all the characters of the comment
-                    }
-                }
+          if(rawFile.readyState === 4) {
+            if(rawFile.status === 200 || rawFile.status == 0) {
+              var allText = rawFile.responseText;
+              var n = allText.indexOf (nameOfVariable, 0);               //searching the position of the name of the variable that we are looking for
+              if(n != -1){
+                var position = allText.indexOf ("description", n);           //searching the position where is the next description
+                position = allText.indexOf ("\"", position+1);               //passing the first " character after the word description
+                position = allText.indexOf ("\"", position+1);               //passing the second " character (where the comment starts) 
+                var position2 = allText.indexOf ("\"", position+1);          //position where the comment ends
+                textRead = allText.substr(position+1 ,position2-position-1);  //variable for save all the characters of the comment
+              }
             }
+          }
         }
         rawFile.send(null);
         return textRead;
