@@ -11,13 +11,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="element-stuff-base.html">
 <link rel="import" href="element-stuff-shared-styles.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="app-icons.html">
 
 <dom-module id="current-connection">
 
   <template>
     <style include="element-stuff-shared-styles">
     #bonus {
-        font-size: 12px;
+      font-size: 12px;
+    }
+    .remove {
+      position: right;
     }
     </style>
     <div id="bonus"></div>
@@ -25,13 +30,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class CurrentConnection extends Polymer.Element {
       static get is() { return 'current-connection'; }
-      
+
+      // Add information about the connection between the different components and the posibility of 
+      // remove these connections
+
       updateConnection(connection){
-        console.log(connection);
         let p = document.createElement('p');
         p.innerHTML="- The variable <strong>" + connection[1] + "</strong> of the component <strong>" + connection[0] +
             "</strong> is connected with the variable <strong>" + connection[3] + "</strong> of the component <strong>" + connection[2] + "</strong>.";
         this.$.bonus.appendChild(p);
+        let buttonRemove = document.createElement('button');
+        buttonRemove.innerHTML = "Remove element";
+
+        // onclick which deletes the interconnecion between two variables of diferent components
+        buttonRemove.onclick = function(){
+          const info = {
+            origin: connection[0],
+            originAttr: connection[1],
+            dest: connection[2],
+            destAttr: connection[3],
+          }
+          var eventDisconnect = new CustomEvent('delete-connection',{'detail': info});
+          this.dispatchEvent(eventDisconnect);
+          buttonRemove.parentNode.removeChild(buttonRemove);
+          p.parentNode.removeChild(p);    
+        }
+        buttonRemove.classList.add("remove");
+        this.$.bonus.appendChild(buttonRemove);
       }
     }
     customElements.define(CurrentConnection.is, CurrentConnection);

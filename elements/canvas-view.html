@@ -136,8 +136,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           alert(error);
         }
         // If everything is going correctly, add the connection to current connections
-        
         return [idOrigin, var1, idDest, var2];
+      }
+
+      disconnectElements(evt){
+        let idOrigin = event.detail.origin;
+        let idDest = event.detail.dest;
+        let var1 = event.detail.originAttr;
+        let var2 = event.detail.destAttr;
+        let comp1 = this.$.canvas.querySelector(idOrigin);
+        let comp2 = this.$.canvas.querySelector(idDest);
+        console.log("aaaaaa");
+        Interconnection.unbind(comp1,var1);
+        Interconnection.unbind(comp2,var2);
       }
 
       add(el) {

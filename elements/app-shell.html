@@ -240,6 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.appControls.actionHistory = this.$.actionHistory;
         this.$.viewContainer.actionHistory = this.$.actionHistory;
 
+        this.$.conexionView.$.viewConnections.addEventListener('delete-connection', event => this.disconnect(event));
         this.$.conexionView.$.propertiesContainer.addEventListener('create-connection', event => this.connect(event));
         this.addEventListener('new-element', event => this.createElement(event));
         this.addEventListener('new-sample', event => this.createSample(event));
@@ -287,6 +288,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       connect(evt) {
         var elementsConnection = this.$.viewContainer.connectComponents(evt);
         this.$.conexionView.addConnection(elementsConnection);     
+      }
+
+      disconnect(evt) {
+        console.log("a");
+        var disconnectElements = this.$.viewContainer.disconnectElements(evt);
       }
 
       /*
