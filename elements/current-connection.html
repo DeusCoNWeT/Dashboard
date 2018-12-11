@@ -41,23 +41,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.bonus.appendChild(p);
         let buttonRemove = document.createElement('button');
         buttonRemove.innerHTML = "Remove element";
-
+        var doc = this;
+        
         // onclick which deletes the interconnecion between two variables of diferent components
         buttonRemove.onclick = function(){
-          const info = {
-            origin: connection[0],
-            originAttr: connection[1],
-            dest: connection[2],
-            destAttr: connection[3],
+          if(window.confirm("Do you really want to delete this connection?")){
+            const info = {
+              origin: connection[0],
+              originAttr: connection[1],
+              dest: connection[2],
+              destAttr: connection[3],
+            }
+            var eventDisconnect = new CustomEvent('delete-connection',{'detail': info});
+            doc.dispatchEvent(eventDisconnect);
+            buttonRemove.remove();
+            p.remove();    
           }
-          var eventDisconnect = new CustomEvent('delete-connection',{'detail': info});
-          this.dispatchEvent(eventDisconnect);
-          buttonRemove.parentNode.removeChild(buttonRemove);
-          p.parentNode.removeChild(p);    
-        }
+        }        
         buttonRemove.classList.add("remove");
         this.$.bonus.appendChild(buttonRemove);
-      }
+      }       
     }
     customElements.define(CurrentConnection.is, CurrentConnection);
   </script>
