@@ -18,49 +18,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template>
     <style include="element-stuff-shared-styles">
-    #bonus {
-      font-size: 12px;
-    }
-    .remove {
-      position: right;
-    }
+      #inf {
+        font-size: 12px;
+      }
+      span {
+        font-weight: bold;
+      }
+      button {
+        border: 1px solid var(--input-border-color);
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 11px;
+        margin-left: 4px;
+        display: inline-block;
+        color: white;
+        background: transparent;
+        height: 24px;
+        padding: 0 2px 0 4px;
+        width: 120px;
+
+      }
     </style>
-    <div id="bonus"></div>
+    <template is="dom-repeat" items="{{connectionList}}">
+      <div>
+        <p id="inf">The variable <span>{{item.connection.1}}</span> of the component <span>{{item.connection.0}}</span> is
+          connected with the variable <span>{{item.connection.3}}</span>
+          of the component <span>{{item.connection.2}}</span></p>
+        <button on-click="deleteConnection">Remove element</button>
+      </div>
+    </template>
   </template>
   <script>
     class CurrentConnection extends Polymer.Element {
       static get is() { return 'current-connection'; }
 
+      static get properties() {
+        return {
+          connectionList: {
+            type: Array,
+            value() {
+              return [];
+            }
+          }
+        }
+      }
+
       // Add information about the connection between the different components and the posibility of 
       // remove these connections
 
-      updateConnection(connection){
-        let p = document.createElement('p');
-        p.innerHTML="- The variable <strong>" + connection[1] + "</strong> of the component <strong>" + connection[0] +
-            "</strong> is connected with the variable <strong>" + connection[3] + "</strong> of the component <strong>" + connection[2] + "</strong>.";
-        this.$.bonus.appendChild(p);
-        let buttonRemove = document.createElement('button');
-        buttonRemove.innerHTML = "Remove element";
-        var doc = this;
-        
-        // onclick which deletes the interconnecion between two variables of diferent components
-        buttonRemove.onclick = function(){
-          if(window.confirm("Do you really want to delete this connection?")){
-            const info = {
-              origin: connection[0],
-              originAttr: connection[1],
-              dest: connection[2],
-              destAttr: connection[3],
-            }
-            var eventDisconnect = new CustomEvent('delete-connection',{'detail': info});
-            doc.dispatchEvent(eventDisconnect);
-            buttonRemove.remove();
-            p.remove();    
-          }
-        }        
-        buttonRemove.classList.add("remove");
-        this.$.bonus.appendChild(buttonRemove);
-      }       
+      addConnection(conn) {
+        this.push('connectionList',{connection:[conn[0], conn[1], conn[2], conn[3]]});
+      }
+
+      deleteConnection(e) {
+        if(window.confirm("Do you really want to delete this connection?")){
+          const idx = e.model.index;
+          this.splice('connectionList',idx, 1);
+          var eventDisconnect = new CustomEvent('delete-connection',{'detail': e.model.item});
+          this.dispatchEvent(eventDisconnect);
+        }
+      }
     }
     customElements.define(CurrentConnection.is, CurrentConnection);
   </script>
