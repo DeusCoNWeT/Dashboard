@@ -21,10 +21,10 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "paper-swatch-picker": "PolymerElements/paper-swatch-picker#*",
     "web-animations-js": "^2.3.1",
-    "polymer-interconnection": "https://github.com/DeusCoNWeT/interconnection.git#^2.0.0"
+    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.1"
   },
   "devDependencies": {
-    "map-component":"alvarohj96/mapComponent#*",
+    "map-component": "alvarohj96/mapComponent#*",
     "hello-world": "alvarohj96/easyWebComponent#*",
     "div-component": "alvarohj96/divComponent#*",
     "input-component": "alvarohj96/inputComponet#*"
