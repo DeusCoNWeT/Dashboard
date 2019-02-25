@@ -132,9 +132,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Bind comp1.var1 to comp2.var2
         Interconnection.bind(comp1, var1,comp2,var2);
         // Alert users of possible errors
+        //comentario de rafa: no estoy seguro de que esto sirva de algo
         window.onerror = function(error){
           alert(error);
         }
+
         // If everything is going correctly, add the connection to current connections
         return [idOrigin, var1, idDest, var2];
       }

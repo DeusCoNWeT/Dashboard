@@ -28,12 +28,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </datalist>
 
     <!-- The list of clickable buttons -->
-   
-      <dom-repeat items="[[elements]]">
-        <template>
-          <button>[[item]]</button>
-        </template>
-      </dom-repeat>
+
+    <dom-repeat items="[[elements]]">
+      <template>
+        <button>[[item]]</button>
+      </template>
+    </dom-repeat>
 
     <iron-ajax auto url="elements-samples.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
 

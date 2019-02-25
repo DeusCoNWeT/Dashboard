@@ -28,7 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <datalist id="listElement2"></datalist>
 
     <label for="filterVariable2">Var. 2nd el.</label>
-    <input list="listVariable2" placeholder="Filter Variable" id="filterVariable2">
+    <input list="listVariable2" placeholder="Filter Variable" id="filterVariable2" on-keydown="checkForEnter">
     <datalist id="listVariable2"></datalist>
 
     <input type="button" id="send" value="Connect">
@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           itemsList: {
             type: Array,
             value: []
-          }        
+          }
         }
       }
 
@@ -52,17 +52,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.send.addEventListener('click', this.createConnection.bind(this));
       }
 
+
+      //by rafa: if u press enter in the last input field it creates the connection too
+      checkForEnter(e) {
+        // check if 'enter' was pressed
+        if (e.keyCode === 13) {
+          // enter pressed!
+          this.createConnection();
+        }
+      }
+
       findElement1(event) {
         var i;
-        for(i=0;i < this.itemsList.length;i++){
-          if(this.itemsList[i].id == this.$.filterElement1.value){
+        for (i = 0; i < this.itemsList.length; i++) {
+          if (this.itemsList[i].id == this.$.filterElement1.value) {
             break;
           }
         }
-        if(i < this.itemsList.length){
-          this.$.listVariable1.innerHTML ='';
+        if (i < this.itemsList.length) {
+          this.$.listVariable1.innerHTML = '';
           var a = this.itemsList[i].ref.__dataAttributes;
-          for(var x=0; x < this.sizeObject(a); x++ ){
+          for (var x = 0; x < this.sizeObject(a); x++) {
             var option = document.createElement("option");
             option.setAttribute("value", Object.keys(a)[x]);
             this.$.listVariable1.appendChild(option);
@@ -72,16 +82,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       findElement2(event) {
         var i;
-        for(i=0;i < this.itemsList.length;i++){
-          if(this.itemsList[i].id == this.$.filterElement2.value){
+        for (i = 0; i < this.itemsList.length; i++) {
+          if (this.itemsList[i].id == this.$.filterElement2.value) {
             break;
           }
         }
 
-        if(i < this.itemsList.length){
-          this.$.listVariable2.innerHTML ='';
+        if (i < this.itemsList.length) {
+          this.$.listVariable2.innerHTML = '';
           var a = this.itemsList[i].ref.__dataAttributes;
-          for(var x=0; x < this.sizeObject(a); x++ ){
+          for (var x = 0; x < this.sizeObject(a); x++) {
             var option = document.createElement("option");
             option.setAttribute("value", Object.keys(a)[x]);
             this.$.listVariable2.appendChild(option);
@@ -97,36 +107,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return size;
       }
 
-      createConnection(event){
-        if(this.$.filterElement1.value == "" || this.$.filterElement2.value == "" ||
-          this.$.filterVariable1.value == "" || this.$.filterVariable2.value == ""){
+      createConnection(event) {
+        if (this.$.filterElement1.value == "" || this.$.filterElement2.value == "" ||
+          this.$.filterVariable1.value == "" || this.$.filterVariable2.value == "") {
           alert("You have to complete all the fields of the connection");
         }
-        else{
+        else {
           const info = {
             origin: this.$.filterElement1.value,
             originAttr: this.$.filterVariable1.value,
             dest: this.$.filterElement2.value,
             destAttr: this.$.filterVariable2.value,
           }
-          var eventConnect = new CustomEvent('create-connection',{'detail': info});
+          var eventConnect = new CustomEvent('create-connection', { 'detail': info });
           this.dispatchEvent(eventConnect);
 
         }
       }
 
-      updateElementsList1(items,el) {
-        this.$.listElement1.innerHTML ='';
+      updateElementsList1(items, el) {
+        this.$.listElement1.innerHTML = '';
         for (let i = 0; i < items.length; i++) {
           var option = document.createElement("option");
           option.setAttribute("value", items[i].id);
           this.$.listElement1.appendChild(option);
         }
-        this.itemsList=items;
+        this.itemsList = items;
       }
 
-      updateElementsList2(items,el) {
-        this.$.listElement2.innerHTML ='';
+      updateElementsList2(items, el) {
+        this.$.listElement2.innerHTML = '';
         for (let i = 0; i < items.length; i++) {
           var option = document.createElement("option");
           option.setAttribute("value", items[i].id);
