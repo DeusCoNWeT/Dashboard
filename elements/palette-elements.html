@@ -29,13 +29,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </datalist>
 
     <!-- The list of clickable buttons -->
-    <dom-repeat items="[[elements]]">
-      <template>
-        <button>[[item]]</button>
-      </template>
-    </dom-repeat>
+    <div class="lista">
+      <dom-repeat items="[[elements]]">
+        <template>
+          <button>[[item]]</button>
+        </template>
+      </dom-repeat>
+    </div>
     <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
   </template>
+
   <script>
     /*
      * List of elements that can be added to the view.
@@ -72,7 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         this.elements = Object.keys(list).concat(subelements).sort();
 
-        Polymer.Base.fire('package-names-ready', {list: this.namesToPackages}, {node: this});
+        Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
       }
 
       _doClick(target, kind) {
@@ -92,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           packageName = this.namesToPackages[kind];
         }
         let url = `bower_components/${packageName}/${kind}.html`;
-        Polymer.Base.importHref(url, function(e) {
+        Polymer.Base.importHref(url, function (e) {
           this._fireEvent('new-element', kind, packageName, '');
         }.bind(this));
       }

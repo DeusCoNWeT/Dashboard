@@ -27,7 +27,10 @@
     "map-component": "alvarohj96/mapComponent#*",
     "hello-world": "alvarohj96/easyWebComponent#*",
     "div-component": "alvarohj96/divComponent#*",
-    "input-component": "alvarohj96/inputComponet#*"
+    "input-component": "alvarohj96/inputComponet#*",
+    "weather2-app": "Rafata8/weather2#*",
+    "c-dias": "Rafata8/weather2#*",
+    "c-current": "Rafata8/weather2#*"
   },
   "subelements": {
     "iron-icons": [

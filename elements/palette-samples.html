@@ -28,12 +28,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </datalist>
 
     <!-- The list of clickable buttons -->
-    <dom-repeat items="[[elements]]">
-      <template>
-        <button>[[item]]</button>
-      </template>
-    </dom-repeat>
-
+    <div class="lista">
+      <dom-repeat items="[[elements]]">
+        <template>
+          <button>[[item]]</button>
+        </template>
+      </dom-repeat>
+    </div>
     <iron-ajax auto url="elements-samples.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
 
   </template>
@@ -47,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _doClick(target, kind) {
         let url = `samples/${kind}.html`;
 
-        Polymer.Base.importHref(url, function(e) {
+        Polymer.Base.importHref(url, function (e) {
           let doc = e.target.import;
           let template = doc.querySelector('template');
           this._fireEvent('new-sample', kind, '', template);

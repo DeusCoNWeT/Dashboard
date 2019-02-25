@@ -2,8 +2,14 @@
   "elements":
   [
     "a",
-
-    "iframe",
-    "h2"
+    "p",
+    "span",
+    "div",
+    "input",
+    "button",
+    "form",
+    "img",
+    "h1",
+    "iframe"
   ]
 }
