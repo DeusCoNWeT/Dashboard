@@ -30,7 +30,9 @@
     "input-component": "alvarohj96/inputComponet#*",
     "weather2-app": "Rafata8/weather2#*",
     "c-dias": "Rafata8/weather2#*",
-    "c-current": "Rafata8/weather2#*"
+    "c-current": "Rafata8/weather2#*",
+    "traffic-incidents":"DeusCoNWeT/traffic-incidents#*",
+    "traffic-incidents-data":"DeusCoNWeT/traffic-incidents#*"
   },
   "subelements": {
     "iron-icons": [
