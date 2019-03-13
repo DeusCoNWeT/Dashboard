@@ -1,7 +1,9 @@
-Para ver como funciona esto mejor vete a otra rama a verlo.
+## Explicación de esta rama
+
+Para ver como funciona esto vaya al readme de otro branch por favor.
 Esto es solo una explicacion de esta rama.
 
-"funciones" añadidas:
+**"funciones" añadidas:**
   - supr+mayusc --> eliminar componente
   - enter en el ultimo recuadro de conexion para añadir conexión
   - tratamiento de errores (alert de por qué no puedes hacer la conexión y cosas así, no mucho más)
