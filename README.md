@@ -36,8 +36,8 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
     
 ### Componentes  
 - El componente de trafico:
-  - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . El primero está en polymer 2, el segundo está en Polymer 1
-  - Versión pro: "traffic-incidents": "Rafata8/mapaTrafico#*". Se podría usar también los dos de la báica, pero quedan peor para esta parte
+  - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . *El primero está en polymer 2, el segundo está en Polymer 1*
+  - Versión pro: "traffic-incidents": "Rafata8/mapaTrafico#*". *Se podría usar también los dos de la básica, pero quedan peor para esta parte*
 - El componente de mapa:
   - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
   - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
