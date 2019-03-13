@@ -28,8 +28,9 @@
     "hello-world": "alvarohj96/easyWebComponent#*",
     "div-component": "alvarohj96/divComponent#*",
     "input-component": "alvarohj96/inputComponet#*",
-    "map-component": "Rafata8/mapaTrafico#*",
-    "traffic-incidents": "Rafata8/trafficMortega#tpolymer2"
+    "map-component": "Rafata8/mapaTrafico#pro",
+    "traffic-incidents": "Rafata8/trafficMortega#tpolymer2",
+    "pro-traffic": "Rafata8/trafficMortega#tpolymer2"
 
   },
   "subelements": {
