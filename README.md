@@ -29,7 +29,7 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
     - long de traffic-incidents --> longitude de map-component
     - traffic-info2 de traffic-incidents --> traffic-info de map-component
 
-  - version "pro"
+  - Version "pro"
     - traffic-info2 de traffic-incidents --> traffic-info de map-component
     - radio de traffic-incidents --> radio de map-component
     - city de map-component --> city detraffic-incidents
@@ -37,7 +37,7 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
 ### Componentes  
 - El componente de trafico:
   - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . *El primero está en polymer 2, el segundo está en Polymer 1*
-  - Versión pro: "traffic-incidents": "Rafata8/mapaTrafico#*". *Se podría usar también los dos de la básica, pero quedan peor para esta parte*
+  - Versión pro: **"traffic-incidents": "Rafata8/mapaTrafico#*"**. *Se podrían usar también los dos de la básica, pero quedan peor para esta parte*
 - El componente de mapa:
   - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
   - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
