@@ -1,13 +1,15 @@
-## Explicación de esta rama
+# Explicación de esta rama
 
 Para ver como funciona esto vaya al readme de otro branch por favor.
 Esto es solo una explicacion de esta rama.
+
 
 **"funciones" añadidas:**
   - supr+mayusc --> eliminar componente
   - enter en el ultimo recuadro de conexion para añadir conexión
   - tratamiento de errores (alert de por qué no puedes hacer la conexión y cosas así, no mucho más)
   
+## Componentes añadidos (bower.json)
 Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
       
   - Normal --> introduces la ciudad en el componente de tráfico y al darle a enter te muestra las incidencias en el mapa.      Errores conocidos:
@@ -21,20 +23,24 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
                 -si el array de trafico es muy largo en el dashboard no se pasa entero y da error (en polymer serve-o se pasa entero)
                 
                 
-  Para conectar las versiones:
-  para conectar la versión básica:
-    radio de traffic-incidents --> radio de map-component
-    lat de traffic-incidents --> latitude de map-component
-    long de traffic-incidents --> longitude de map-component
-    traffic-info2 de traffic-incidents --> traffic-info de map-component
+  ### Para conectar las versiones:
+  - Versión básica:
+    - radio de traffic-incidents --> radio de map-component
+    - lat de traffic-incidents --> latitude de map-component
+    - long de traffic-incidents --> longitude de map-component
+    - traffic-info2 de traffic-incidents --> traffic-info de map-component
 
-para conectar la version "pro"
-   traffic-info2 de traffic-incidents --> traffic-info de map-component
-    radio de traffic-incidents --> radio de map-component
-    city de map-component --> city de map-component traffic-incidents
+  - version "pro"
+    - traffic-info2 de traffic-incidents --> traffic-info de map-component
+    - radio de traffic-incidents --> radio de map-component
+    - city de map-component --> city detraffic-incidents
     
- El componente de trafico se encuentra en Rafata/trafficMortega#tpolymer2  o en  "traffic-incidents": "Rafata8/mapaTrafico#*"
- 
- el mapa se encuentra en "map-component": "Rafata8/mapaTrafico#*", el básico, y el pro en "map-component": "Rafata8/mapaTrafico#pro",
+### Componentes  
+- El componente de trafico:
+  - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . El primero está en polymer 2, el segundo está en Polymer 1
+  - Versión pro: "traffic-incidents": "Rafata8/mapaTrafico#*". Se podría usar también los dos de la báica, pero quedan peor para esta parte
+- El componente de mapa:
+  - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
+  - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
                 
 
