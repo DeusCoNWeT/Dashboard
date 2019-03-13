@@ -2,16 +2,16 @@ Para ver como funciona esto mejor vete a otra rama a verlo.
 Esto es solo una explicacion de esta rama.
 
 "funciones" añadidas:
-  -supr+mayusc --> eliminar componente
-  -enter en el ultimo recuadro de conexion para añadir conexión
+  - supr+mayusc --> eliminar componente
+  - enter en el ultimo recuadro de conexion para añadir conexión
   - tratamiento de errores (alert de por qué no puedes hacer la conexión y cosas así, no mucho más)
   
 Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
       
-  -Normal --> introduces la ciudad en el componente de tráfico y al darle a enter te muestra las incidencias en el mapa.      Errores conocidos:
+  - Normal --> introduces la ciudad en el componente de tráfico y al darle a enter te muestra las incidencias en el mapa.      Errores conocidos:
       -si el array de trafico es muy largo en el dashboard no se pasa entero y da error (en polymer serve-o se pasa entero)
       
-  -Pro --> te mueves por el mapa, le das a buscar aquí (o algo así se llama el botón), y te muestra tanto en el 
+  - Pro --> te mueves por el mapa, le das a buscar aquí (o algo así se llama el botón), y te muestra tanto en el 
             mapa como en el componente de tráfico los incidentes. Errores conocidos
                 -En ciudades ambiguas (que haya varias llamadas igual no sabes cuál te va a dar). Lo puedo arreglar creo,
                       pasa mucho en EEUU
