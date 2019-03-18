@@ -41,5 +41,20 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
 - El componente de mapa:
   - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
   - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
-                
+  
+  ## Importante
+  
+  Aquí viene la cutrez máxima. Los marker de google map no se actualizan bien, creo que es culpa de google y no mía. Para arreglarlo, hay que ir al archivo de google-map-marker.html (dentro de bower components en la carpeta de google-map) y cambiar la linea 404, que pone esto:
+  this._contentObserver.observe( this, {
+  childList: true,
+  subtree: true
+});
 
+  y poner esto en vez :
+  this._contentObserver.observe( this, {
+  childList: true,
+  subtree: true,
+  characterData: true
+});
+                
+La solución no es mía claro, todo el mérito a https://www.uno-de-piera.com/google-maps-search-polymer/
