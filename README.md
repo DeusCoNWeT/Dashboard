@@ -49,7 +49,7 @@ Esto es solo una explicacion de esta rama.
  
   ### Componentes
    - Mapa: **"map-component": "Rafata8/tiempoMapa#*"**
-   -Tiempo: **"c-tiempo": "Rafata8/tiempoMapa#*"**
+   - Tiempo: **"c-tiempo": "Rafata8/tiempoMapa#*"**
   
   ### Para conectar las versiones:
   - tiempo_info de c-tiempo a tiempo_info de map-components
