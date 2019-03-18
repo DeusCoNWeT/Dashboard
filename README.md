@@ -10,7 +10,7 @@ Esto es solo una explicacion de esta rama.
   - tratamiento de errores (alert de por qué no puedes hacer la conexión y cosas así, no mucho más)
   
 ## Componentes añadidos (bower.json)
-Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
+ ## Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
       
   - **Normal** --> introduces la ciudad en el componente de tráfico y al darle a enter te muestra las incidencias en el mapa.      Errores conocidos:
       -si el array de trafico es muy largo en el dashboard no se pasa entero y da error (en polymer serve-o se pasa entero)
@@ -20,6 +20,15 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
       - En ciudades ambiguas (que haya varias llamadas igual no sabes cuál te va a dar). Lo puedo arreglar creo, pasa mucho en EEUU
       - Al pinchar en carreteras te puede dar incidente en cualquier punto de la carretera
       - si el array de trafico es muy largo en el dashboard no se pasa entero y da error (en polymer serve-o se pasa entero)
+      
+    ### Componentes  
+- El componente de trafico:
+  - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . *El primero está en polymer 2, el segundo está en Polymer 1*
+  - Versión pro: **"traffic-incidents": "Rafata/proTraffic#tpolymer2"** o bien en  **"traffic-incidents": "Rafata8/mapaTrafico#*"**. *El primero está en polymer 2, el segundo está en Polymer 1*. *Se podrían usar también los dos de la básica, pero quedan peor para esta parte*
+- El componente de mapa:
+  - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
+  - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
+  
                 
                 
   ### Para conectar las versiones:
@@ -33,14 +42,20 @@ Mapa que muestra el tráfico. Hay dos versiones, la normal y la "pro".
     - traffic-info2 de traffic-incidents --> traffic-info de map-component
     - radio de traffic-incidents --> radio de map-component
     - city de map-component --> city detraffic-incidents
-    
-### Componentes  
-- El componente de trafico:
-  - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . *El primero está en polymer 2, el segundo está en Polymer 1*
-  - Versión pro: **"traffic-incidents": "Rafata/proTraffic#tpolymer2"** o bien en  **"traffic-incidents": "Rafata8/mapaTrafico#*"**. *El primero está en polymer 2, el segundo está en Polymer 1*. *Se podrían usar también los dos de la básica, pero quedan peor para esta parte*
-- El componente de mapa:
-  - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
-  - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
+
+ 
+ ## Mapa que muestra el tiempo en ciudades
+ Introduces un ligar o pinchas en el boton de e"el tiempo aqui" y te da el tiempo de las 20 ciudades mas cercanas
+ 
+  ### Componentes
+   - Mapa: **"map-component": "Rafata8/tiempoMapa#*"**
+   -Tiempo: **"c-tiempo": "Rafata8/tiempoMapa#*"**
+  
+  ### Para conectar las versiones:
+  - tiempo_info de c-tiempo a tiempo_info de map-components
+  - lat de map-components a lat de c-tiempo 
+  - lon de map-components a lon de c-tiempo 
+  
   
   ## Importante
   
