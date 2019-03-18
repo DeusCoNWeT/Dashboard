@@ -57,7 +57,7 @@ Esto es solo una explicacion de esta rama.
   - lon de map-components a lon de c-tiempo 
   
   
-  ## Importante
+ ## Importante
   
   Aquí viene la cutrez máxima. Los marker de google map no se actualizan bien, creo que es culpa de google y no mía. Para arreglarlo, hay que ir al archivo de google-map-marker.html (dentro de bower components en la carpeta de google-map) y cambiar la linea 404, que pone esto:
   this._contentObserver.observe( this, {
