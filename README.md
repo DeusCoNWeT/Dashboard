@@ -55,6 +55,7 @@ Esto es solo una explicacion de esta rama.
   - tiempo_info de c-tiempo a tiempo_info de map-components
   - lat2 de map-components a lat de c-tiempo 
   - lon2 de map-components a lon de c-tiempo 
+  - _loading de las dos entre ellas
   
   
  ## Importante
