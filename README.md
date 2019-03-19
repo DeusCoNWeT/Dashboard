@@ -53,8 +53,8 @@ Esto es solo una explicacion de esta rama.
   
   ### Para conectar las versiones:
   - tiempo_info de c-tiempo a tiempo_info de map-components
-  - lat de map-components a lat de c-tiempo 
-  - lon de map-components a lon de c-tiempo 
+  - lat2 de map-components a lat de c-tiempo 
+  - lon2 de map-components a lon de c-tiempo 
   
   
  ## Importante
