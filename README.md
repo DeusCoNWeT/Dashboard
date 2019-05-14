@@ -24,7 +24,7 @@ Esto es solo una explicacion de esta rama.
     ### Componentes  
 - El componente de trafico:
   - Version básica: se encuentra en **"traffic-incidents": "Rafata/trafficMortega#tpolymer2"**  o en  **"traffic-incidents": "Rafata8/mapaTrafico#*"** . *El primero está en polymer 2, el segundo está en Polymer 1*
-  - Versión pro: **"traffic-incidents": "Rafata/proTraffic#tpolymer2"** o bien en  **"traffic-incidents": "Rafata8/mapaTrafico#*"**. *El primero está en polymer 2, el segundo está en Polymer 1*. *Se podrían usar también los dos de la básica, pero quedan peor para esta parte*
+  - Versión pro: **"pro-traffic": "Rafata/trafficMortega#tpolymer2"** o bien en  **"traffic-incidents": "Rafata8/mapaTrafico#*"**. *El primero está en polymer 2, el segundo está en Polymer 1*. *Se podrían usar también los dos de la básica, pero quedan peor para esta parte*
 - El componente de mapa:
   - Versión básica: **"map-component": "Rafata8/mapaTrafico#*"**
   - Versión pro: **"map-component": "Rafata8/mapaTrafico#pro"**
