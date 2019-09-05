@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="palette-elements.html">
 <link rel="import" href="palette-native.html">
 <link rel="import" href="palette-samples.html">
+<link rel="import" href="palette-dashboard.html">
 
 <dom-module id="palette-view">
   <template>
@@ -49,11 +50,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <designer-tab name="samples">
         <button>Samples</button>
       </designer-tab>
+      <designer-tab name="dashboard">
+        <button>Dashboards</button>
+      </designer-tab>
     </designer-tabs>
     <iron-pages selected="[[selected]]" attr-for-selected="name" selected-attribute="visible">
       <palette-native name="native" id="native"></palette-native>
       <palette-elements name="elements"></palette-elements>
       <palette-samples name="samples"></palette-samples>
+      <palette-dashboard name="dashboard"></palette-dashboard>
     </iron-pages>
   </template>
   <script>

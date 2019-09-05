@@ -45,13 +45,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('conn-dash', this.connectDash.bind(this));
+
+      }
       ready() {
         super.ready();
         this.$.filterElement1.addEventListener('input', this.findElement1.bind(this));
         this.$.filterElement2.addEventListener('input', this.findElement2.bind(this));
         this.$.send.addEventListener('click', this.createConnection.bind(this));
+        // this.addEventListener('conn-dash', event => this.connectDash(event));
       }
 
+      connectDash(event) {
+        this.$.filterElement1.value = event.detail.origin
+        this.$.filterElement2.value = event.detail.dest
+        this.$.filterVariable1.value = event.detail.originAttr
+        this.$.filterVariable2.value = event.detail.destAttr
+        this.createConnection();
+      }
 
       //by rafa: if u press enter in the last input field it creates the connection too
       checkForEnter(e) {
