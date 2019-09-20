@@ -8,6 +8,13 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<!-- by Rafa entero
+es lo mismo que palette elements pero aqui saca los dashboards
+estos los saca del backend mediante iron-ajax
+tambien se incluye un boton para eliminar un dashboard del backend -->
+
+
+
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
@@ -48,7 +55,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="palette-shared-styles"></style>
 
     <paper-icon-button on-click="refresh" icon="refresh"></paper-icon-button>
-    <!-- <button on-click="elimiDash">Eliminar Dashboard</button> -->
 
     <!-- A typeahead search -->
     <input list="list" placeholder="Filter Custom Elements" id="filter">
@@ -66,15 +72,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template>
         <button class='yo'>[[item]]</button>
         <paper-icon-button class='yo' on-click="deleteDashboard" icon="delete"></paper-icon-button>
-        <!-- <button class='yo'>Eliminar</button> -->
       </template>
     </dom-repeat>
     <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
     <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboards" handle-as="json"
       on-response="_dashboardsReady"></iron-ajax>
 
-      <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json'
-      on-response="respuesta_e" on-error="error_e">
+    <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
     </iron-ajax>
   </template>
 
@@ -104,22 +108,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       deleteDashboard(e) {
         if (window.confirm("Do you really want to delete this dashboard from the database?")) {
           const idx = e.model.index
-          this.url= 'http://localhost/dashboard.com/v1/api/dashboards/'+this.dashboards[idx]._id
+          this.url = 'http://localhost/dashboard.com/v1/api/dashboards/' + this.dashboards[idx]._id
           this.$.eliminar.generateRequest();
           this.refresh()
         }
       }
 
 
-      respuesta_e(){
+      respuesta_e() {
         alert('Eliminado correctamente');
       }
 
-      error_e(){
+      error_e() {
         alert('Error en la eliminación');
       }
 
-
+      // coge los elementos del bower
       _elementsReady(event) {
         // First, some elements have sub-elements in the same package.
         let subElements = event.detail.response.subelements;
@@ -168,6 +172,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           this.maybeDoHTMLImport(kind, this.namesToPackages[kind]);
         }
+        // hasta aqui la funcion esta copiada de palette elements
+
+        // a partir de aqui coge la combination del dashboard elegido, y hace las conexiones
+        // las conexiones se hacen igual que desde la pestaña de connections, para ello se envía un evento que 
+        // procesara el componente correspondiente
         let combinacion = this.dashboards[pos].combination
         setTimeout(function () {
           for (i = 0; i < combinacion.length; i += 2) {
@@ -192,6 +201,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
 
+      // copiado
       maybeDoHTMLImport(kind, packageName) {
         if (packageName === undefined) {
           // Oof, someone didn't know what element this was. Find it in the list.

@@ -45,6 +45,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      // added by Rafa
+      // event listener para estar atentos de las conexiones que nos pueda pedir el palette-dashboard
+      // lo hacemos asi para respetar la estructura existente, y es que las conexiones se hagan solo desde este componente
       connectedCallback() {
         super.connectedCallback();
         window.addEventListener('conn-dash', this.connectDash.bind(this));
@@ -58,6 +61,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // this.addEventListener('conn-dash', event => this.connectDash(event));
       }
 
+      // emula que alguien ha escrito en los inputs de conexiones(para que se haga como siempre) y llama a la funcion que seria darle al boton de conectar
+      // es un poco chapuza pero así funciona exactamente igual que una conexion normal
       connectDash(event) {
         this.$.filterElement1.value = event.detail.origin
         this.$.filterElement2.value = event.detail.dest

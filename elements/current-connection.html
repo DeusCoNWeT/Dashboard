@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           is
           connected with the variable <span>{{item.connection.3}}</span>
           of the component <span>{{item.connection.2}}</span></p>
-        <button on-click="deleteConnection">Remove element</button>
+        <button on-click="deleteConnection">Remove connection</button>
 
 
       </div>
@@ -93,11 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           nombre: {
             type: String,
-            value:''
-          },
-          id_eliminar:{
-            type:String,
-            value:'5d244f865618ac99254b3092'
+            value: ''
           }
         }
       }
@@ -150,6 +146,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
 
+      // coge los componentes, y a partir de ahi sube el dashboard si los componentes existen en el backend
+      // hace algunas transformaciones en el nombre para que sea acorde con el backend
       respuesta(e, res) {
 
         this.componentes = e.detail.response;
@@ -180,6 +178,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             if (this.componentes[j].name == nombre2 && this.componentes[j].version == version) {
               id2 = this.componentes[j]._id;
             }
+            // si coincide que existe, crea la estructura de combination
             if (id1 != '' && id2 != '') {
               salir = true;
               add1 = {
@@ -190,7 +189,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               add2 = {
                 "id": id2,
-                "nombre":nombre2,
+                "nombre": nombre2,
                 "property": this.connectionList[i].connection[3]
               };
               combination.push(add1);
@@ -200,6 +199,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
 
+        // ya con el combination, crea la estructura del dasboard
         this.body = {
           "name": this.nombre,
           "component_1": id1,
@@ -212,19 +212,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       error(e, res) {
         alert('Error accediendo al backend')
-        this.nombre='';
+        this.nombre = '';
 
       }
 
       respuesta_D(e, res) {
 
         alert('Dashboard creado correctamente')
-        this.nombre='';
+        this.nombre = '';
       }
 
       error_D(e, res) {
         alert('Error creando el dashboard')
-        this.nombre='';
+        this.nombre = '';
 
       }
 
