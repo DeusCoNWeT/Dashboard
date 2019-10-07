@@ -74,9 +74,14 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         <paper-icon-button class='yo' on-click="deleteDashboard" icon="delete"></paper-icon-button>
       </template>
     </dom-repeat>
-    <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
-    <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboards" handle-as="json"
-      on-response="_dashboardsReady"></iron-ajax>
+
+    <iron-ajax id="autoBower" url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
+
+    <!-- <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax> -->
+    <!-- <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboards" handle-as="json"
+      on-response="_dashboardsReady"></iron-ajax> -->
+    <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
+      on-response="_dashboardsReadyBVA"></iron-ajax>
 
     <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
     </iron-ajax>
@@ -99,12 +104,21 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         this.$.getDash.generateRequest();
       }
 
-      _dashboardsReady(e, res) {
+      // _dashboardsReady(e, res) {
+      //   this.dashboards = e.detail.response;
+      //   this.listaDash = this.dashboards.map(function (el) { return el.name; });
+
+      // }
+
+      // a ver, pillamos los dahsboards y cogemos la version del primero (supondremos que son todos la misma)
+      _dashboardsReadyBVA(e, res) {
         this.dashboards = e.detail.response;
         this.listaDash = this.dashboards.map(function (el) { return el.name; });
+        this.version = this.dashboards[0].version;
+        console.log(this.version)
+        this.$.autoBower.generateRequest()
 
       }
-
       deleteDashboard(e) {
         if (window.confirm("Do you really want to delete this dashboard from the database?")) {
           const idx = e.model.index
@@ -123,34 +137,94 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         alert('Error en la eliminación');
       }
 
-      // coge los elementos del bower
+      // es lo mismo que la de abajo, pero cogemos solo los componentes de la version indicada
       _elementsReady(event) {
         // First, some elements have sub-elements in the same package.
-        let subElements = event.detail.response.subelements;
         let list = event.detail.response.devDependencies;
+        let version = this.version
+        // let version='Ram'
+        // console.log(this.version)
 
+        // bucle, quitamos la parte de version del nombre del elemento y lo ponemos en la carpeta en la que estaç
+        // para que direccione bien y habra el elemento que nos piden
         for (let p in list) {
-          this.namesToPackages[p] = p;
-        }
+          let fields = p.split('-version')
+          if (version == fields[1]) {
+            this.namesToPackages[fields[0]] = p;
+          }
+          else if (version == 'Estable' && fields.length==1){
+            this.namesToPackages[p] = p;
+          }
 
-        let subelements = [];
-        for (let parent in subElements) {
-          for (let i = 0; i < subElements[parent].length; i++) {
-            subelements.push(`${parent}/${subElements[parent][i]}`);
-            let packageName = parent;
-            if (parent === 'app-layout') {
-              packageName = parent + '/' + subElements[parent][i];
-            }
-            this.namesToPackages[subElements[parent][i]] = packageName;
+          // si no es la version que nos han pasado eliminamos ese elemento de la lista
+          else {
+            delete list[p]
           }
         }
-        this.elements = Object.keys(list).concat(subelements).sort();
+
+        // este bucle se podia hacer en el anterior pero asi lo tenemos mas organizado
+        // bucle para cambiar la clave y que no se sepa que version aparece
+        for (let p in list) {
+          let fields = p.split('-version')
+          if (fields.length > 1) {
+            Object.defineProperty(list, fields[0],
+              Object.getOwnPropertyDescriptor(list, p));
+            delete list[p];
+          }
+        }
+
+        this.elements = Object.keys(list).sort();
+        // console.log(this.elements)
+        // console.log(this.namesToPackages)
 
         Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
+        this.dispatchEvent(new CustomEvent('versions-ready-dashboards', { detail: this.version, bubbles: true, composed: true }));
       }
+
+      // // es lo mismo que la de abajo, pero cogemos solo los componentes de la version indicada
+      // _elementsReady(event) {
+      //   // First, some elements have sub-elements in the same package.
+      //   let list = event.detail.response.devDependencies;
+      //   for (let p in list) {
+      //     this.namesToPackages[p] = p;
+      //   }
+      //   console.log(this.namesToPackages)
+      //   this.elements = Object.keys(list).sort();
+       
+      //   Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
+      // }
+
+
+      // coge los elementos del bower es para poner dashboards normales, no esta pensado para BVA
+
+      // _elementsReady(event) {
+      //   // First, some elements have sub-elements in the same package.
+      //   let subElements = event.detail.response.subelements;
+      //   let list = event.detail.response.devDependencies;
+
+      //   for (let p in list) {
+      //     this.namesToPackages[p] = p;
+      //   }
+
+      //   let subelements = [];
+      //   for (let parent in subElements) {
+      //     for (let i = 0; i < subElements[parent].length; i++) {
+      //       subelements.push(`${parent}/${subElements[parent][i]}`);
+      //       let packageName = parent;
+      //       if (parent === 'app-layout') {
+      //         packageName = parent + '/' + subElements[parent][i];
+      //       }
+      //       this.namesToPackages[subElements[parent][i]] = packageName;
+      //     }
+      //   }
+      //   this.elements = Object.keys(list).concat(subelements).sort();
+
+      //   Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
+      // }
 
       _doClick(target, kind) {
         let salir = false;
+
         let i = 0;
         for (i = 0; i < this.dashboards.length && salir == false; i++) {
           if (kind == this.dashboards[i].name)
@@ -160,11 +234,12 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         let componentes = this.dashboards[pos].combination.map(function (el) { return el.nombre; });
         componentes = [...new Set(componentes)]
 
-
         for (i = 0; i < componentes.length; i++) {
           kind = componentes[i];
+          console.log(this.dashboards)
           // maybe it's a package/subpackage kind of thing.
           let matches = kind.match(/(.*)\/(.*)/);
+
           let packageName = kind;
           if (matches && matches.length === 3) {
             packageName = matches[1];
@@ -181,11 +256,11 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         setTimeout(function () {
           for (i = 0; i < combinacion.length; i += 2) {
             let origen = combinacion[i].nombre
-            origen = '#' + origen.replace('-', '_')
+            origen = '#' + origen.replace('/-/g', '_')
             let atrorigen = combinacion[i].property
             let j = i + 1
             let destino = combinacion[j].nombre
-            destino = '#' + destino.replace('-', '_')
+            destino = '#' + destino.replace('/-/g', '_')
             let atrdestino = combinacion[j].property
             const info = {
               origin: origen,
@@ -193,6 +268,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
               dest: destino,
               destAttr: atrdestino,
             }
+            // console.log(info)
             var eventConnect = new CustomEvent('conn-dash', { 'detail': info, bubbles: true, composed: true });
             this.dispatchEvent(eventConnect);
           }
@@ -206,6 +282,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         if (packageName === undefined) {
           // Oof, someone didn't know what element this was. Find it in the list.
           packageName = this.namesToPackages[kind];
+          // console.log(this.namesToPackages)
         }
         let url = `bower_components/${packageName}/${kind}.html`;
         Polymer.Base.importHref(url, function (e) {

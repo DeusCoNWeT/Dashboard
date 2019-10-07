@@ -21,20 +21,26 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "paper-swatch-picker": "PolymerElements/paper-swatch-picker#*",
     "web-animations-js": "^2.3.1",
-    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.1"
+    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.1",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+    "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0"
   },
   "devDependencies": {
     
-    "hello-world": "alvarohj96/easyWebComponent#*",
-    "div-component": "alvarohj96/divComponent#*",
-    "input-component": "alvarohj96/inputComponet#*",
-    "map-component": "Rafata8/tiempoMapa#*",
-    "traffic-incidents": "Rafata8/trafficMortega#tpolymer2",
-    "pro-traffic": "Rafata8/trafficMortega#tpolymer2",
+    "map-component-ti": "Rafata8/tiempoMapa#*",
+    "map-component-ti-versionRam": "Rafata8/tiempoMapa#versionRam",
+    "map-component-ti-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "map-component-tr": "Rafata8/traficoMapa#*",
+    "map-component-tr-versionRam": "Rafata8/traficoMapa#versRam",
+    "map-component-tr-versionIntercon": "Rafata8/traficoMapa#versintercon",
     "c-tiempo": "Rafata8/tiempoMapa#*",
-    "twitter-element":"Rafata8/postear#*",
-    "sender-elementer":"Rafata8/postear#*",
-    "for-reddit-component":"Rafata8/postear#*"
+    "c-tiempo-versionRam": "Rafata8/tiempoMapa#versionRam",
+    "c-tiempo-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "traffic-incidents": "Rafata8/traficoMapa#*",
+    "traffic-incidents-versionRam": "Rafata8/traficoMapa#versRam",
+    "traffic-incidents-versionIntercon": "Rafata8/traficoMapa#versintercon"
+
 
 
   },

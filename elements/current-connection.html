@@ -161,10 +161,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           let nombre1 = this.connectionList[i].connection[0];
 
           nombre1 = nombre1.replace('#', '');
-          nombre1 = nombre1.replace('_', '-');
+          nombre1 = nombre1.replace('/_/g', '-');
           let nombre2 = this.connectionList[i].connection[2];
           nombre2 = nombre2.replace('#', '');
-          nombre2 = nombre2.replace('_', '-');
+          nombre2 = nombre2.replace('/_/g', '-');
           let salir = false;
           let version = "V1";
 

@@ -509,7 +509,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       _makeUniqueId(node, id, suffix) {
-        id = id.replace('-', '_');
+        id = id.replace('/-/g', '_');
         let uId = id + (suffix || '');
         return this.$.viewContainer.has('#' + uId) ?
           this._makeUniqueId(node, id, suffix ? ++suffix : 1) : uId;
