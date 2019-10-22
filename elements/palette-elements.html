@@ -81,7 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _ready(e){
         this.versiones=e.detail
-        console.log(e.detail)
+        // console.log(e.detail)
         this.$.auto.generateRequest()
       }
 
@@ -145,8 +145,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         this.elements = Object.keys(list).sort();
-        console.log(this.elements)
-        console.log(this.namesToPackages)
+        // console.log(this.elements)
+        // console.log(this.namesToPackages)
 
         Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
       }
