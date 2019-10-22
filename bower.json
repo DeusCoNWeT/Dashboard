@@ -21,7 +21,7 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "paper-swatch-picker": "PolymerElements/paper-swatch-picker#*",
     "web-animations-js": "^2.3.1",
-    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.1",
+    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
     "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
     "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0"
