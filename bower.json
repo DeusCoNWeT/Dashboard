@@ -31,15 +31,19 @@
     "map-component-ti": "Rafata8/tiempoMapa#*",
     "map-component-ti-versionRam": "Rafata8/tiempoMapa#versionRam",
     "map-component-ti-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "map-component-ti-versionFPS": "Rafata8/tiempoMapa#versionFPS",
     "map-component-tr": "Rafata8/traficoMapa#*",
     "map-component-tr-versionRam": "Rafata8/traficoMapa#versRam",
     "map-component-tr-versionIntercon": "Rafata8/traficoMapa#versintercon",
+    "map-component-tr-versionFPS": "Rafata8/traficoMapa#versFPS",
     "c-tiempo": "Rafata8/tiempoMapa#*",
     "c-tiempo-versionRam": "Rafata8/tiempoMapa#versionRam",
     "c-tiempo-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "c-tiempo-versionFPS": "Rafata8/tiempoMapa#versionFPS",
     "traffic-incidents": "Rafata8/traficoMapa#*",
     "traffic-incidents-versionRam": "Rafata8/traficoMapa#versRam",
-    "traffic-incidents-versionIntercon": "Rafata8/traficoMapa#versintercon"
+    "traffic-incidents-versionIntercon": "Rafata8/traficoMapa#versintercon",
+    "traffic-incidents-versionFPS": "Rafata8/traficoMapa#versFPS"
 
 
 

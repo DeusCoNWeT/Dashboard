@@ -86,24 +86,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
 
-      subir_componentes() {
-        this.url = 'http://localhost/dashboard.com/v1/api/components/'
-        for (let i in this.list) {
-          let fields = i.split('-version')
-          let name = fields[0]
-          let directory = i
-          let descripcion = i
-          let version = fields.length == 2 ? fields[1] : 'Estable'
-          this.body = {
-            'name': name,
-            'directory': directory,
-            'description': descripcion,
-            'version': version
-          }
-          this.$.postear_componentes.generateRequest()
+      // subir_componentes() {
+      //   this.url = 'http://localhost/dashboard.com/v1/api/components/'
+      //   for (let i in this.list) {
+      //     let fields = i.split('-version')
+      //     let name = fields[0]
+      //     let directory = i
+      //     let descripcion = i
+      //     let version = fields.length == 2 ? fields[1] : 'Estable'
+      //     this.body = {
+      //       'name': name,
+      //       'directory': directory,
+      //       'description': descripcion,
+      //       'version': version
+      //     }
+      //     this.$.postear_componentes.generateRequest()
 
-        }
-      }
+      //   }
+      // }
 
       // es lo mismo que la de abajo, pero cogemos solo los componentes de la version indicada
 

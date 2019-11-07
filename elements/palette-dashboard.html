@@ -80,7 +80,10 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
     <!-- <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax> -->
     <!-- <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboards" handle-as="json"
       on-response="_dashboardsReady"></iron-ajax> -->
-    <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
+    <iron-ajax 
+    auto
+    with-credentials="false"
+     id="getDash" url="http://localhost/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
       on-response="_dashboardsReadyBVA"></iron-ajax>
 
     <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
@@ -122,6 +125,9 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
       // }
 
       _dashboardsReadyBVA(e, res) {
+        // var headers = res.xhr.getAllResponseHeaders();
+        // var headers = res.xhr.getResponseHeader('Set-Cookie');
+        // console.log(headers)
         this.dashboards = e.detail.response;
         this.listaDash = this.dashboards.map(function (el) { return el.name; });
         // this.versions = this.dashboards.map(function (el) { return el.version; });
