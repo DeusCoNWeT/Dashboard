@@ -255,6 +255,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.addEventListener('new-sample', event => this.createSample(event));
         this.addEventListener('element-updated', event => this.updateElement(event));
 
+        this.addEventListener('delete-connectionsE', event => this.disconnectAll(event));
+
         this.addEventListener('refresh-view', event => this.refreshView(event));
         this.addEventListener('selected-element-changed', event => {
           this.setActiveElement(event.detail.target);
@@ -309,6 +311,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       disconnect(evt) {
         var disconnectElements = this.$.viewContainer.disconnectElements(evt);
+      }
+
+      disconnectAll(evt){
+        console.log('disconnectAll')
+        console.log(evt)
+        var disconnectElements = this.$.viewContainer.disconnectConnexionsElement(evt);
       }
 
       /*

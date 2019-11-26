@@ -98,6 +98,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
 
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('remove-connections', this.deleteElementConnections.bind(this));
+
+      }
+
       // Add information about the connection between the different components and the posibility of 
       // remove these connections
 
@@ -236,6 +242,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var eventDisconnect = new CustomEvent('delete-connection', { 'detail': e.model.item });
           this.dispatchEvent(eventDisconnect);
         }
+        console.log(this.connectionList)
+      }
+
+      deleteElementConnections(e) {
+        console.log('hello')
+        console.log(e.detail.id)
+        let lista = []
+        for (let i = 0; i < this.connectionList.length; i++) {
+          console.log(this.connectionList[i])
+          if (this.connectionList[i].connection[0] == '#' + e.detail.id || this.connectionList[i].connection[2] == '#' + e.detail.id) {
+            lista.push(i);
+          }
+
+        }
+        var filtered = this.connectionList.filter(function (value, index, arr) {
+
+          return value.connection[0] != '#' + e.detail.id && value.connection[2] != '#' + e.detail.id;
+
+        });
+       this.connectionList=filtered;
       }
     }
     customElements.define(CurrentConnection.is, CurrentConnection);

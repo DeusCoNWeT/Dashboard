@@ -145,7 +145,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let idDest = evt.detail.connection[2];
         let var2 = evt.detail.connection[3];
         let comp2 = this.$.canvas.querySelector(idDest);
+        // console.log(comp2)
         Interconnection.unbindConsumer(comp2,var2);
+      }
+
+      disconnectConnexionsElement(evt){
+        console.log('ultimo paso')
+        Interconnection.unbindElement(evt.detail);
+        var eventDisconnect3 = new CustomEvent('remove-connections', { 'detail': evt.detail, bubbles: true, composed: true });
+        console.log(eventDisconnect3)
+        this.dispatchEvent(eventDisconnect3);
       }
 
       add(el) {

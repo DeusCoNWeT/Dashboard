@@ -167,6 +167,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         const el = this.selectedElement;
+        console.log(el)
+
+
+        var eventDisconnect2 = new CustomEvent('delete-connectionsE', { 'detail': el, bubbles: true, composed: true });
+        this.dispatchEvent(eventDisconnect2);
+
+
         // Deleting the top level app should remove its children.
         if (this._isCanvasElement(el)) {
           this.actionHistory.add('delete', el, { innerHTML: el.getInnerHTML() });
