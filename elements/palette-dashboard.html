@@ -71,7 +71,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
     <dom-repeat items="[[listaDash]]">
       <template>
         <button class='yo'>[[item]]</button>
-        <paper-icon-button class='yo' on-click="deleteDashboard" icon="delete"></paper-icon-button>
+        <!-- <paper-icon-button class='yo' on-click="deleteDashboard" icon="delete"></paper-icon-button> -->
       </template>
     </dom-repeat>
 
@@ -86,8 +86,8 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
      id="getDash" url="http://localhost/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
       on-response="_dashboardsReadyBVA"></iron-ajax>
 
-    <!-- <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
-    </iron-ajax> -->
+    <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
+    </iron-ajax>
   </template>
 
   <script>
