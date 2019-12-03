@@ -62,11 +62,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- <input value="{{nombre::input}}" placeholder="Nombre del dahsboard"> -->
     <!-- <button on-click="elimiDash">Eliminar Dashboard</button> -->
 
-    <iron-ajax id="coger" url="http://localhost/dashboard.com/v1/api/components" method="GET" handleAs='json'
+    <iron-ajax id="coger" url="/dashboard.com/v1/api/components" method="GET" handleAs='json'
       on-response="respuesta" on-error="error" content-type="application/json">
     </iron-ajax>
 
-    <iron-ajax id="postear" url="http://localhost/dashboard.com/v1/api/dashboards" method="POST" handleAs='json'
+    <iron-ajax id="postear" url="/dashboard.com/v1/api/dashboards" method="POST" handleAs='json'
       body=[[body]] on-response="respuesta_D" on-error="error_D" content-type="application/json">
     </iron-ajax>
 

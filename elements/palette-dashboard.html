@@ -78,12 +78,12 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
     <iron-ajax id="autoBower" url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
 
     <!-- <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax> -->
-    <!-- <iron-ajax auto id="getDash" url="http://localhost/dashboard.com/v1/api/dashboards" handle-as="json"
+    <!-- <iron-ajax auto id="getDash" url="/dashboard.com/v1/api/dashboards" handle-as="json"
       on-response="_dashboardsReady"></iron-ajax> -->
     <iron-ajax 
     auto
     with-credentials="false"
-     id="getDash" url="http://localhost/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
+     id="getDash" url="/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
       on-response="_dashboardsReadyBVA"></iron-ajax>
 
     <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
@@ -140,7 +140,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
       deleteDashboard(e) {
         if (window.confirm("Do you really want to delete this dashboard from the database?")) {
           const idx = e.model.index
-          this.url = 'http://localhost/dashboard.com/v1/api/dashboards/' + this.dashboards[idx]._id
+          this.url = '/dashboard.com/v1/api/dashboards/' + this.dashboards[idx]._id
           this.$.eliminar.generateRequest();
           this.refresh()
         }
