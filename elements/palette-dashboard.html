@@ -78,12 +78,12 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
     <iron-ajax id="autoBower" url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
 
     <!-- <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax> -->
-    <!-- <iron-ajax auto id="getDash" url="/dashboard.com/v1/api/dashboards" handle-as="json"
+    <!-- <iron-ajax auto id="getDash" url="/api/v1/dashboards" handle-as="json"
       on-response="_dashboardsReady"></iron-ajax> -->
-    <iron-ajax 
+    <iron-ajax
     auto
     with-credentials="false"
-     id="getDash" url="/dashboard.com/v1/api/dashboardsBVA" handle-as="json"
+     id="getDash" url="/api/v1/dashboardsBVA" handle-as="json"
       on-response="_dashboardsReadyBVA"></iron-ajax>
 
     <iron-ajax id="eliminar" url=[[url]] method="DELETE" handleAs='json' on-response="respuesta_e" on-error="error_e">
@@ -140,7 +140,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
       deleteDashboard(e) {
         if (window.confirm("Do you really want to delete this dashboard from the database?")) {
           const idx = e.model.index
-          this.url = '/dashboard.com/v1/api/dashboards/' + this.dashboards[idx]._id
+          this.url = '/api/v1/dashboards/' + this.dashboards[idx]._id
           this.$.eliminar.generateRequest();
           this.refresh()
         }
@@ -171,12 +171,12 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
 
           let lista = event.detail.response.devDependencies
 
-          
+
           let listaComps = this.dashboards[p].combination.map(function (el) { return el.nombre; })
           listaComps = [...new Set(listaComps)]
           // console.log(listaComps)
           for (let x in lista) {
-            
+
             let fields = x.split('-version')
             // console.log(fields)
 
@@ -201,7 +201,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         }
         console.log(list)
 
-        
+
 
         // this.elements = Object.keys(list).sort();
         //  console.log(this.namesToPackages)
@@ -305,7 +305,7 @@ tambien se incluye un boton para eliminar un dashboard del backend -->
         // hasta aqui la funcion esta copiada de palette elements
 
         // a partir de aqui coge la combination del dashboard elegido, y hace las conexiones
-        // las conexiones se hacen igual que desde la pestaña de connections, para ello se envía un evento que 
+        // las conexiones se hacen igual que desde la pestaña de connections, para ello se envía un evento que
         // procesara el componente correspondiente
         let combinacion = this.dashboards[pos].combination
         setTimeout(function () {
