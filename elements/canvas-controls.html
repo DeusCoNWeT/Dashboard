@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+
       designer-tab {
         color: white;
         background: var(--dark-grey);
@@ -32,6 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         line-height: 1em;
         justify-content: space-around;
       }
+
       button {
         padding: 0;
         cursor: pointer;
@@ -43,10 +45,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         transition: all .05s ease-in;
         outline: none;
       }
+
       button[disabled] {
         pointer-events: none;
         opacity: 0.3;
       }
+
       button::before,
       button::after {
         content: '';
@@ -59,24 +63,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border-width: 0 2px 0;
         box-sizing: border-box;
       }
+
       button::after {
         top: auto;
         bottom: 0;
       }
+
       button:hover,
       button:hover::before,
       button:hover::after,
-      button:focus, /* :focus hack */
+      button:focus,
+      /* :focus hack */
       button:focus::before,
       button:focus::after {
         border-color: var(--light-grey);
       }
+
       button:active,
       button:active::before,
       button:active::after {
         border-color: var(--highlight-pink);
       }
     </style>
+
     <designer-tab>
       <button on-click="delete" title="Delete element">
         <iron-icon icon="designer:delete"></iron-icon>
@@ -104,7 +113,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     class CanvasControls extends Polymer.Element {
       static get is() { return 'canvas-controls'; }
-      static get properties() { return {
+      static get properties() {
+        return {
           selectedElement: {
             type: Object,
             observer: '_selectedElementChanged'
@@ -113,6 +123,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           actionHistory: Object
         }
       }
+
+      //checkforSupr, y ready added by Rafa
+
+      ready() {
+        super.ready();
+        window.addEventListener('keydown', this.checkForSupr.bind(this));
+      }
+
+
+      checkForSupr(e) {
+        // check if 'supr' was pressed
+        //if pressed and shift ed delete the element
+        if (e.keyCode === 46) {
+          if (e.shiftKey) {
+            this.delete();
+          }
+
+        }
+
+      }
+
 
       /**
        * Disable a bunch of UI if the selected element is the canvas element.
@@ -138,13 +169,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         const el = this.selectedElement;
         // Deleting the top level app should remove its children.
         if (this._isCanvasElement(el)) {
-          this.actionHistory.add('delete', el, {innerHTML: el.getInnerHTML()});
+          this.actionHistory.add('delete', el, { innerHTML: el.getInnerHTML() });
           el.setInnerHTML('');
         } else {
           const parent = el.parentElement;
           parent.removeChild(el);
           this.selectedElement = parent;
-          this.actionHistory.add('delete', el, {parent: parent});
+          this.actionHistory.add('delete', el, { parent: parent });
         }
         this._refreshView();
 
@@ -162,10 +193,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let clone = el.cloneNode(true);
         el.parentNode.appendChild(clone);
 
-        Polymer.Base.fire('finish-clone', {target: clone}, {node: this});
+        Polymer.Base.fire('finish-clone', { target: clone }, { node: this });
 
         // P.S: Since we did a clone, we already have the initial state of the <tag>.
-        this.actionHistory.add('new', clone, {parent: el.parentNode});
+        this.actionHistory.add('new', clone, { parent: el.parentNode });
         this._refreshView();
 
       }
@@ -202,7 +233,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * Moving elements in the DOM
        */
       move(type, skipHistory) {
-        switch(type) {
+        switch (type) {
           case 'forward':
             this.moveForward(skipHistory);
             break;
@@ -282,7 +313,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this.actionHistory.add('move-up', el,
-          {old: {parent: parent}, new: {parent: parent.parentElement}});
+          { old: { parent: parent }, new: { parent: parent.parentElement } });
       }
 
       moveDown(skipHistory) {
@@ -297,7 +328,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let slots = sibling.root ? sibling.root.querySelectorAll('slot') : [];
         let canDrop =
           (sibling.localName.indexOf('-') === -1 && sibling.localName !== 'input') ||
-           sibling.localName === 'dom-repeat' || slots.length !== 0;
+          sibling.localName === 'dom-repeat' || slots.length !== 0;
 
         if (!canDrop) {
           return;
@@ -314,23 +345,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this.actionHistory.add('move-down', el,
-            {
-              old: {parent: oldParent, position: oldPosition},
-              new: {parent: sibling, position: 'relative'}
-            });
+          {
+            old: { parent: oldParent, position: oldPosition },
+            new: { parent: sibling, position: 'relative' }
+          });
       }
 
       _refreshView() {
-        Polymer.Base.fire('refresh-view', {}, {node: this});
+        Polymer.Base.fire('refresh-view', {}, { node: this });
       }
 
       _selectedElementChanged() {
-        Polymer.Base.fire('selected-element-changed', {target: this.selectedElement}, {node: this});
+        Polymer.Base.fire('selected-element-changed', { target: this.selectedElement }, { node: this });
       }
 
       _isCanvasElement(el) {
         return (el === this.canvasElement);
       }
+
+
     }
     customElements.define(CanvasControls.is, CanvasControls);
   </script>

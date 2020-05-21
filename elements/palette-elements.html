@@ -13,10 +13,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="palette-shared-styles.html">
 <link rel="import" href="palette-base.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="palette-elements">
   <template strip-whitespace>
     <style include="palette-shared-styles"></style>
+
+    <!-- <paper-icon-button on-click="subir_componentes" icon="cloud-upload"></paper-icon-button> -->
 
     <!-- A typeahead search -->
     <input list="list" placeholder="Filter Custom Elements" id="filter">
@@ -29,13 +33,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </datalist>
 
     <!-- The list of clickable buttons -->
+
     <dom-repeat items="[[elements]]">
       <template>
         <button>[[item]]</button>
       </template>
     </dom-repeat>
-    <iron-ajax auto url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
+
+    <iron-ajax id="postear_componentes" url=[[url]] method="POST" handleAs='json' on-response="respuesta_p"
+      on-error="error_p" body="[[body]]" content-type="application/json">
+    </iron-ajax>
+
+    <iron-ajax id='auto' url="bower.json" handle-as="json" on-response="_elementsReady"></iron-ajax>
   </template>
+
   <script>
     /*
      * List of elements that can be added to the view.
@@ -50,35 +61,182 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.namesToPackages = {};
       }
 
+      constructor() {
+        super();
+        this._readyListener = this._ready.bind(this);
+
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('versions-ready-dashboards', this._readyListener);
+
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('versions-ready-dashboards', this._readyListener);
+
+      }
+
+      _ready(e){
+        this.versiones=e.detail
+        // console.log(e.detail)
+        this.$.auto.generateRequest()
+      }
+
+
+      // subir_componentes() {
+      //   this.url = '/api/v1/components/'
+      //   for (let i in this.list) {
+      //     let fields = i.split('-version')
+      //     let name = fields[0]
+      //     let directory = i
+      //     let descripcion = i
+      //     let version = fields.length == 2 ? fields[1] : 'Estable'
+      //     this.body = {
+      //       'name': name,
+      //       'directory': directory,
+      //       'description': descripcion,
+      //       'version': version
+      //     }
+      //     this.$.postear_componentes.generateRequest()
+
+      //   }
+      // }
+
+      // es lo mismo que la de abajo, pero cogemos solo los componentes de la version indicada
+
       _elementsReady(event) {
         // First, some elements have sub-elements in the same package.
-        let subElements = event.detail.response.subelements;
         let list = event.detail.response.devDependencies;
+        // console.log(list)
+        // let version = this.version
+        // let version='Ram'
+        // console.log(version + 'aqui')
 
+        // bucle, quitamos la parte de version del nombre del elemento y lo ponemos en la carpeta en la que estaç
+        // para que direccione bien y habra el elemento que nos piden
         for (let p in list) {
-          this.namesToPackages[p] = p;
-        }
+          let fields = p.split('-version')
+          // console.log(p)
+          if (this.versiones.includes(p)) {
+            this.namesToPackages[fields[0]] = p;
+          }
+          // else if (this.veriones == 'Estable' && fields.length == 1) {
+          //   this.namesToPackages[p] = p;
+          // }
 
-        let subelements = [];
-        for (let parent in subElements) {
-          for (let i = 0; i < subElements[parent].length; i++) {
-            subelements.push(`${parent}/${subElements[parent][i]}`);
-            let packageName = parent;
-            if (parent === 'app-layout') {
-              packageName = parent + '/' + subElements[parent][i];
-            }
-            this.namesToPackages[subElements[parent][i]] = packageName;
+          // si no es la version que nos han pasado eliminamos ese elemento de la lista
+          else {
+            delete list[p]
           }
         }
-        this.elements = Object.keys(list).concat(subelements).sort();
 
-        Polymer.Base.fire('package-names-ready', {list: this.namesToPackages}, {node: this});
+        // este bucle se podia hacer en el anterior pero asi lo tenemos mas organizado
+        // bucle para cambiar la clave y que no se sepa que version aparece
+        for (let p in list) {
+          let fields = p.split('-version')
+          if (fields.length > 1) {
+            Object.defineProperty(list, fields[0],
+              Object.getOwnPropertyDescriptor(list, p));
+            delete list[p];
+          }
+        }
+
+        this.elements = Object.keys(list).sort();
+        // console.log(this.elements)
+        // console.log(this.namesToPackages)
+
+        Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
       }
+
+      // _elementsReady(event) {
+      //   // First, some elements have sub-elements in the same package.
+      //   let subElements = event.detail.response.subelements;
+      //   let list = event.detail.response.devDependencies;
+      //   this.list=list;
+      //   for (let p in list) {
+      //     this.namesToPackages[p] = p;
+      //   }
+
+      //   let subelements = [];
+      //   for (let parent in subElements) {
+      //     for (let i = 0; i < subElements[parent].length; i++) {
+      //       subelements.push(`${parent}/${subElements[parent][i]}`);
+      //       let packageName = parent;
+      //       if (parent === 'app-layout') {
+      //         packageName = parent + '/' + subElements[parent][i];
+      //       }
+      //       this.namesToPackages[subElements[parent][i]] = packageName;
+      //     }
+      //   }
+      //   this.elements = Object.keys(list).concat(subelements).sort();
+
+      //   Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
+      // }
+
+      // _elementsReady(event) {
+      //   // First, some elements have sub-elements in the same package.
+      //   let subElements = event.detail.response.subelements;
+      //   let list = event.detail.response.devDependencies;
+      //   // let version = 'Ram'
+
+      //   // bucle, quitamos la parte de version del nombre del elemento y lo ponemos en la carpeta en la que estaç
+      //   // para que direccione bien y habra el elemento que nos piden
+      //   for (let p in list) {
+      //     let fields = p.split('-version')
+      //     if (version == fields[1] && version != '') {
+      //       this.namesToPackages[fields[0]] = p;
+      //     }
+      //     else if (version == ''){
+      //       this.namesToPackages[p] = p;
+      //     }
+
+      //     // si no es la version que nos han pasado eliminamos ese elemento de la lista
+      //     else {
+      //       delete list[p]
+      //     }
+      //   }
+
+      //   // este bucle se podia hacer en el anterior pero asi lo tenemos mas organizado
+      //   // bucle para cambiar la clave y que no se sepa que version aparece
+      //   for (let p in list) {
+      //     let fields = p.split('-version')
+      //     if (fields.length > 1) {
+      //       Object.defineProperty(list, fields[0],
+      //         Object.getOwnPropertyDescriptor(list, p));
+      //       delete list[p];
+      //     }
+      //   }
+
+      //   let subelements = [];
+      //   for (let parent in subElements) {
+      //     for (let i = 0; i < subElements[parent].length; i++) {
+      //       subelements.push(`${parent}/${subElements[parent][i]}`);
+      //       let packageName = parent;
+      //       if (parent === 'app-layout') {
+      //         packageName = parent + '/' + subElements[parent][i];
+      //       }
+      //       this.namesToPackages[subElements[parent][i]] = packageName;
+
+      //     }
+      //   }
+
+
+      //   this.elements = Object.keys(list).concat(subelements).sort();
+      //   // console.log(this.elements)
+      //   // console.log(this.namesToPackages)
+
+      //   Polymer.Base.fire('package-names-ready', { list: this.namesToPackages }, { node: this });
+      // }
 
       _doClick(target, kind) {
         // maybe it's a package/subpackage kind of thing.
         let matches = kind.match(/(.*)\/(.*)/);
         let packageName = kind;
+        // console.log(matches)
+
         if (matches && matches.length === 3) {
           packageName = matches[1];
           kind = matches[2];
@@ -92,7 +250,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           packageName = this.namesToPackages[kind];
         }
         let url = `bower_components/${packageName}/${kind}.html`;
-        Polymer.Base.importHref(url, function(e) {
+        Polymer.Base.importHref(url, function (e) {
           this._fireEvent('new-element', kind, packageName, '');
         }.bind(this));
       }

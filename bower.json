@@ -21,13 +21,32 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "paper-swatch-picker": "PolymerElements/paper-swatch-picker#*",
     "web-animations-js": "^2.3.1",
-    "polymer-interconnection": "https://github.com/DeusCoNWeT/interconnection.git#^2.0.0"
+    "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.2",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+    "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0"
   },
   "devDependencies": {
-    "map-component":"alvarohj96/mapComponent#*",
-    "hello-world": "alvarohj96/easyWebComponent#*",
-    "div-component": "alvarohj96/divComponent#*",
-    "input-component": "alvarohj96/inputComponet#*"
+    
+    "map-component-ti": "Rafata8/tiempoMapa#*",
+    "map-component-ti-versionRam": "Rafata8/tiempoMapa#versionRam",
+    "map-component-ti-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "map-component-ti-versionFPS": "Rafata8/tiempoMapa#versionFPS",
+    "map-component-tr": "Rafata8/traficoMapa#*",
+    "map-component-tr-versionRam": "Rafata8/traficoMapa#versRam",
+    "map-component-tr-versionIntercon": "Rafata8/traficoMapa#versintercon",
+    "map-component-tr-versionFPS": "Rafata8/traficoMapa#versFPS",
+    "c-tiempo": "Rafata8/tiempoMapa#*",
+    "c-tiempo-versionRam": "Rafata8/tiempoMapa#versionRam",
+    "c-tiempo-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
+    "c-tiempo-versionFPS": "Rafata8/tiempoMapa#versionFPS",
+    "traffic-incidents": "Rafata8/traficoMapa#*",
+    "traffic-incidents-versionRam": "Rafata8/traficoMapa#versRam",
+    "traffic-incidents-versionIntercon": "Rafata8/traficoMapa#versintercon",
+    "traffic-incidents-versionFPS": "Rafata8/traficoMapa#versFPS"
+
+
+
   },
   "subelements": {
     "iron-icons": [

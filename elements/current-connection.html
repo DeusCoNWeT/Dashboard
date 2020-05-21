@@ -13,54 +13,230 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="element-stuff-shared-styles.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="app-icons.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="current-connection">
 
   <template>
     <style include="element-stuff-shared-styles">
-    #bonus {
-      font-size: 12px;
-    }
-    .remove {
-      position: right;
-    }
+      #inf {
+        font-size: 12px;
+        margin-left: 10px;
+      }
+
+      span {
+        font-weight: bold;
+      }
+
+      button {
+        border: 1px solid var(--input-border-color);
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 11px;
+        margin-left: 10px;
+        display: inline-block;
+        color: white;
+        background: transparent;
+        height: 24px;
+        padding: 0 2px 0 4px;
+        width: 120px;
+
+      }
     </style>
-    <div id="bonus"></div>
+    <template is="dom-repeat" items="{{connectionList}}">
+      <div>
+        <p id="inf">The variable <span>{{item.connection.1}}</span> of the component <span>{{item.connection.0}}</span>
+          is
+          connected with the variable <span>{{item.connection.3}}</span>
+          of the component <span>{{item.connection.2}}</span></p>
+        <button on-click="deleteConnection">Remove connection</button>
+
+
+      </div>
+
+    </template>
+
+    <input value="{{nombre::input}}" placeholder="Nombre del dahsboard">
+    <button on-click="subDash">Subir Dashboard</button>
+
+    <!-- <input value="{{nombre::input}}" placeholder="Nombre del dahsboard"> -->
+    <!-- <button on-click="elimiDash">Eliminar Dashboard</button> -->
+
+    <iron-ajax id="coger" url="/api/v1/components" method="GET" handleAs='json'
+      on-response="respuesta" on-error="error" content-type="application/json">
+    </iron-ajax>
+
+    <iron-ajax id="postear" url="/api/v1/dashboards" method="POST" handleAs='json'
+      body=[[body]] on-response="respuesta_D" on-error="error_D" content-type="application/json">
+    </iron-ajax>
+
+
   </template>
   <script>
     class CurrentConnection extends Polymer.Element {
       static get is() { return 'current-connection'; }
 
-      // Add information about the connection between the different components and the posibility of 
+      static get properties() {
+        return {
+          connectionList: {
+            type: Array,
+            value() {
+              return [];
+            }
+          },
+          body: {
+            type: Object
+          },
+
+          componentes: {
+            type: Object
+          },
+          nombre: {
+            type: String,
+            value: ''
+          }
+        }
+      }
+
+      // Add information about the connection between the different components and the posibility of
       // remove these connections
 
-      updateConnection(connection){
-        let p = document.createElement('p');
-        p.innerHTML="- The variable <strong>" + connection[1] + "</strong> of the component <strong>" + connection[0] +
-            "</strong> is connected with the variable <strong>" + connection[3] + "</strong> of the component <strong>" + connection[2] + "</strong>.";
-        this.$.bonus.appendChild(p);
-        let buttonRemove = document.createElement('button');
-        buttonRemove.innerHTML = "Remove element";
-        var doc = this;
-        
-        // onclick which deletes the interconnecion between two variables of diferent components
-        buttonRemove.onclick = function(){
-          if(window.confirm("Do you really want to delete this connection?")){
-            const info = {
-              origin: connection[0],
-              originAttr: connection[1],
-              dest: connection[2],
-              destAttr: connection[3],
+      addConnection(conn) {
+        this.push('connectionList', { connection: [conn[0], conn[1], conn[2], conn[3]] });
+        // editar
+        // for(i=0;i<lista.length;i++){a.push(lista[i].connection[0]);a.push(lista[i].connection[2]);}
+        // let final=[...new Set(a)];
+      }
+
+      subDash() {
+        let i = 0;
+        let conexiones = [];
+        for (i = 0; i < this.connectionList.length; i++) {
+          conexiones.push(this.connectionList[i].connection[0]); conexiones.push(this.connectionList[i].connection[2]);
+        }
+        let final = [...new Set(conexiones)];
+
+
+        // for (i = 0; i < final.length; i++) {
+        //   this.body = {
+        //     "name": final[i],
+        //     "directory": "/pruebas/twitter",
+        //     "description": "componente que postea",
+        //     "version": "V1",
+        //     "properties": {
+        //       "name": "daf",
+        //       "Type": "sf",
+        //       "inPut": "sf",
+        //       "outPut": "ga",
+        //       "Default": "ag"
+        //     }
+        //   }
+
+
+        if (this.nombre == '') {
+          alert('Se necesita poner nombre al dashboard')
+        }
+        else
+          this.$.coger.generateRequest();
+
+
+        //con la lista de las respuestas posteamos el dashboard, le ponemos un componente al azar com representante
+        // las conexiones vamos con la lista y la lista de conexiones
+
+
+      }
+
+      // coge los componentes, y a partir de ahi sube el dashboard si los componentes existen en el backend
+      // hace algunas transformaciones en el nombre para que sea acorde con el backend
+      respuesta(e, res) {
+
+        this.componentes = e.detail.response;
+        let combination = [];
+        let add1 = {};
+        let add2 = {};
+        let id1 = '';
+        let id2 = '';
+
+        for (let i = 0; i < this.connectionList.length; i++) {
+          let nombre1 = this.connectionList[i].connection[0];
+
+          nombre1 = nombre1.replace('#', '');
+          nombre1 = nombre1.replace('/_/g', '-');
+          let nombre2 = this.connectionList[i].connection[2];
+          nombre2 = nombre2.replace('#', '');
+          nombre2 = nombre2.replace('/_/g', '-');
+          let salir = false;
+          let version = "V1";
+
+
+          for (let j = 0; j < this.componentes.length && salir == false; j++) {
+
+
+            if (this.componentes[j].name == nombre1 && this.componentes[j].version == version) {
+              id1 = this.componentes[j]._id;
             }
-            var eventDisconnect = new CustomEvent('delete-connection',{'detail': info});
-            doc.dispatchEvent(eventDisconnect);
-            buttonRemove.remove();
-            p.remove();    
+            if (this.componentes[j].name == nombre2 && this.componentes[j].version == version) {
+              id2 = this.componentes[j]._id;
+            }
+            // si coincide que existe, crea la estructura de combination
+            if (id1 != '' && id2 != '') {
+              salir = true;
+              add1 = {
+                "id": id1,
+                "nombre": nombre1,
+                "property": this.connectionList[i].connection[1]
+              }
+
+              add2 = {
+                "id": id2,
+                "nombre": nombre2,
+                "property": this.connectionList[i].connection[3]
+              };
+              combination.push(add1);
+              combination.push(add2);
+            }
+
           }
-        }        
-        buttonRemove.classList.add("remove");
-        this.$.bonus.appendChild(buttonRemove);
-      }       
+        }
+
+        // ya con el combination, crea la estructura del dasboard
+        this.body = {
+          "name": this.nombre,
+          "component_1": id1,
+          "combination": combination
+        };
+
+        this.$.postear.generateRequest();
+
+      }
+
+      error(e, res) {
+        alert('Error accediendo al backend')
+        this.nombre = '';
+
+      }
+
+      respuesta_D(e, res) {
+
+        alert('Dashboard creado correctamente')
+        this.nombre = '';
+      }
+
+      error_D(e, res) {
+        alert('Error creando el dashboard')
+        this.nombre = '';
+
+      }
+
+
+      deleteConnection(e) {
+        if (window.confirm("Do you really want to delete this connection?")) {
+          const idx = e.model.index;
+          this.splice('connectionList', idx, 1);
+          var eventDisconnect = new CustomEvent('delete-connection', { 'detail': e.model.item });
+          this.dispatchEvent(eventDisconnect);
+        }
+      }
     }
     customElements.define(CurrentConnection.is, CurrentConnection);
   </script>

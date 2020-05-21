@@ -132,22 +132,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Bind comp1.var1 to comp2.var2
         Interconnection.bind(comp1, var1,comp2,var2);
         // Alert users of possible errors
+        //comentario de rafa: no estoy seguro de que esto sirva de algo
         window.onerror = function(error){
           alert(error);
         }
+
         // If everything is going correctly, add the connection to current connections
         return [idOrigin, var1, idDest, var2];
       }
 
       disconnectElements(evt){
-        let idOrigin = evt.detail.origin;
-        let idDest = evt.detail.dest;
-        let var1 = evt.detail.originAttr;
-        let var2 = evt.detail.destAttr;
-        let comp1 = this.$.canvas.querySelector(idOrigin);
+        let idDest = evt.detail.connection[2];
+        let var2 = evt.detail.connection[3];
         let comp2 = this.$.canvas.querySelector(idDest);
-        Interconnection.unbind(comp1,var1);
-        Interconnection.unbind(comp2,var2);
+        Interconnection.unbindConsumer(comp2,var2);
       }
 
       add(el) {

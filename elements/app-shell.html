@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="app-shell">
   <template>
     <style>
-      :host{
+      :host {
         display: block;
         box-sizing: border-box;
         position: relative;
@@ -64,9 +64,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         border: none;
         cursor: pointer;
       }
+
       button:hover {
         box-shadow: inset 0 3px 0 var(--light-grey);
       }
+
       button:focus {
         box-shadow: inset 0 3px 0 var(--highlight-pink);
       }
@@ -90,6 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 0;
         border: none;
       }
+
       designer-tab.single span {
         box-shadow: none;
       }
@@ -101,6 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding-top: 60px;
         height: 100vh;
       }
+
       .app-body[fullscreen] .drawer {
         display: none;
       }
@@ -126,7 +130,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         flex-direction: column;
       }
 
-      iron-pages  {
+      iron-pages {
         height: 100%;
         overflow: auto;
       }
@@ -135,14 +139,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: 900;
         letter-spacing: 2px;
       }
+
       .lite {
         font-weight: 100;
         opacity: 0.5;
         letter-spacing: normal;
       }
+
       canvas-view {
         overflow: auto;
       }
+
       paper-toggle-button {
         position: absolute;
         top: 0;
@@ -153,11 +160,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         letter-spacing: 1px;
         text-transform: uppercase;
         cursor: pointer;
-        --paper-toggle-button-checked-bar-color:  var(--highlight-pink);
-        --paper-toggle-button-checked-button-color:  var(--highlight-pink);
+        --paper-toggle-button-checked-bar-color: var(--highlight-pink);
+        --paper-toggle-button-checked-button-color: var(--highlight-pink);
         --paper-toggle-button-label-color: var(--canvas-background);
-        --paper-toggle-button-unchecked-bar-color:  var(--canvas-background);
-        --paper-toggle-button-unchecked-button-color:  var(--canvas-background);
+        --paper-toggle-button-unchecked-bar-color: var(--canvas-background);
+        --paper-toggle-button-unchecked-button-color: var(--canvas-background);
       }
     </style>
 
@@ -194,7 +201,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-toggle-button unchecked noink checked="{{toggleFullscreen}}">Fullscreen</paper-toggle-button>
         <iron-pages selected="[[mainPage]]" attr-for-selected="name" selected-attribute="visible">
           <canvas-view name="designer" id="viewContainer" style="height:100%"></canvas-view>
-          <div name="code" style="width:100%;height:100%;"><slot name="code"></slot></div>
+          <div name="code" style="width:100%;height:100%;">
+            <slot name="code"></slot>
+          </div>
           <demo-view id="demoView" name="preview"></demo-view>
           <help-view name="help"></help-view>
         </iron-pages>
@@ -222,7 +231,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
       }
-      
+
       connectedCallback() {
         super.connectedCallback();
 
@@ -286,8 +295,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       connect(evt) {
-        var elementsConnection = this.$.viewContainer.connectComponents(evt);
-        this.$.conexionView.addConnection(elementsConnection);     
+
+        //el try catch es de rafa (ergo se puede borrar)
+        try {
+          var elementsConnection = this.$.viewContainer.connectComponents(evt);
+          this.$.conexionView.addConnection(elementsConnection);
+          alert('Conexion creada!');
+        } catch (error) {
+          alert(error);
+        }
+
       }
 
       disconnect(evt) {
@@ -309,7 +326,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         // Tell everyone who cares about this.
         this.$.canvasControls.selectedElement =
-            this.$.viewContainer.selectedElement = this.activeElement = el;
+          this.$.viewContainer.selectedElement = this.activeElement = el;
         this.$.canvasControls.selectedElement = this.activeElement;
         this.$.canvasControls.update(this.activeElement === this.$.viewContainer);
       }
@@ -325,11 +342,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // If we haven't before, save this initial state of a <tag> element,
         // so that we can diff it to produce the actual state of the world
         codeView.save(tag, event.detail.package, el);
-        this.$.actionHistory.add('new', el, {parent: el.parentNode});
+        this.$.actionHistory.add('new', el, { parent: el.parentNode });
 
         this._finishNewElement(el, tag);
         // You need the item to render first.
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
           el.click();
         });
       }
@@ -348,7 +365,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         for (let i = 0; i < children.length; i++) {
           el = document.importNode(children[i], true);
           this.$.viewContainer.add(el);
-          this.$.actionHistory.add('new', el, {parent: el.parentNode});
+          this.$.actionHistory.add('new', el, { parent: el.parentNode });
           let tag = el.localName;
           if (tag !== 'style') {
             nonStyleChildren++;
@@ -358,7 +375,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         // Position the sample better, if it was a one element thing.
         if (nonStyleChildren === 1 && templateTag !== 'app-layout-sample' &&
-            templateTag !== 'wizzywid-sample') {
+          templateTag !== 'wizzywid-sample') {
           el.style.boxSizing = 'border-box';
           el.style.position = 'absolute';
           el.style.left = el.style.top = '20px';
@@ -382,8 +399,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.elementView.display(el);
         // Highlight it in the tree.
         var items = this.$.treeView.recomputeTree(this.$.viewContainer, el);
-        
-        this.$.conexionView.recomputeElements(items,el);
+
+        this.$.conexionView.recomputeElements(items, el);
       }
 
       updateElement(event) {
@@ -396,8 +413,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.actionHistory.add('update', this.activeElement,
           {
             type: detail.type, name: detail.name,
-            new: {value: detail.value},
-            old: {value: oldValue}
+            new: { value: detail.value },
+            old: { value: oldValue }
           });
       }
 
@@ -443,7 +460,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       viewCode() {
-        Polymer.Base.fire('update-code', {target: this.$.viewContainer}, {node: this});
+        Polymer.Base.fire('update-code', { target: this.$.viewContainer }, { node: this });
       }
 
       viewDemo() {
@@ -486,13 +503,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         let slots = el.root ? el.root.querySelectorAll('slot') : [];
 
         if ((this.$.paletteView.isNativeElement(tag) && tag !== 'input') ||
-            slots.length != 0) {
+          slots.length != 0) {
           el.textContent = tag;
         }
       }
 
       _makeUniqueId(node, id, suffix) {
-        id = id.replace('-', '_');
+        id = id.replace('/-/g', '_');
         let uId = id + (suffix || '');
         return this.$.viewContainer.has('#' + uId) ?
           this._makeUniqueId(node, id, suffix ? ++suffix : 1) : uId;

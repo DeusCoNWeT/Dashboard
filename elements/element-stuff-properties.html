@@ -130,46 +130,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.bonus.appendChild(input);
 
           var componentName = target.attributes.class.ownerElement.localName;
-          var comment = this.writeComments(name,componentName);
+          // var comment = this.writeComments(name,componentName);
 
-          if(comment != ""){
-            let button = document.createElement('button');
-            button.innerHTML= 'Info';
-            button.onclick = function(){
-              let p = document.createElement('p');
-              p.innerHTML = comment;
-              button.appendChild(p);
-            };
-            this.$.bonus.appendChild(button);
-          }
+          // if(comment != ""){
+          //   let button = document.createElement('button');
+          //   button.innerHTML= 'Info';
+          //   button.onclick = function(){
+          //     let p = document.createElement('p');
+          //     p.innerHTML = comment;
+          //     button.appendChild(p);
+          //   };
+          //   this.$.bonus.appendChild(button);
+          // }
         }
       }
 
-      writeComments (nameOfVariable,nameOfComponent) {
+      // writeComments (nameOfVariable,nameOfComponent) {
 
-        var file = "../bower_components/"+ nameOfComponent +"/analysis.json";
+      //   var file = "../bower_components/"+ nameOfComponent +"/analysis.json";
         
-        var rawFile = new XMLHttpRequest();
-        var textRead = "";
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function () {
-          if(rawFile.readyState === 4) {
-            if(rawFile.status === 200 || rawFile.status == 0) {
-              var allText = rawFile.responseText;
-              var n = allText.indexOf (nameOfVariable, 0);               //searching the position of the name of the variable that we are looking for
-              if(n != -1){
-                var position = allText.indexOf ("description", n);           //searching the position where is the next description
-                position = allText.indexOf ("\"", position+1);               //passing the first " character after the word description
-                position = allText.indexOf ("\"", position+1);               //passing the second " character (where the comment starts) 
-                var position2 = allText.indexOf ("\"", position+1);          //position where the comment ends
-                textRead = allText.substr(position+1 ,position2-position-1);  //variable for save all the characters of the comment
-              }
-            }
-          }
-        }
-        rawFile.send(null);
-        return textRead;
-      }
+      //   var rawFile = new XMLHttpRequest();
+      //   var textRead = "";
+      //   rawFile.open("GET", file, false);
+      //   rawFile.onreadystatechange = function () {
+      //     if(rawFile.readyState === 4) {
+      //       if(rawFile.status === 200 || rawFile.status == 0) {
+      //         var allText = rawFile.responseText;
+      //         var n = allText.indexOf (nameOfVariable, 0);               //searching the position of the name of the variable that we are looking for
+      //         if(n != -1){
+      //           var position = allText.indexOf ("description", n);           //searching the position where is the next description
+      //           position = allText.indexOf ("\"", position+1);               //passing the first " character after the word description
+      //           position = allText.indexOf ("\"", position+1);               //passing the second " character (where the comment starts) 
+      //           var position2 = allText.indexOf ("\"", position+1);          //position where the comment ends
+      //           textRead = allText.substr(position+1 ,position2-position-1);  //variable for save all the characters of the comment
+      //         }
+      //       }
+      //     }
+      //   }
+      //   rawFile.send(null);
+      //   return textRead;
+      // }
     }
     customElements.define(ElementProperties.is, ElementProperties);
   </script>
