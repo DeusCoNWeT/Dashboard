@@ -1,0 +1,170 @@
+
+<!-- Import de polymer-->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/polymer/lib/utils/gestures.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<!--Define la etiqueta-->
+<dom-module id="quality-form">
+  <template>
+    <style>
+       
+      .task{
+        display: flex;
+        align-items: center;
+      }
+      paper-input{
+        display: inline-block;
+      }
+    </style>
+
+  <!--   <h3>{{name}}</h3>
+    <dom-repeat items={{tasks}} as="task" filter="notCompleted" observe="completed">
+      <template >
+        <div class="task">
+          <paper-checkbox checked="{{task.completed}}"></paper-checkbox> 
+          <paper-input label= "task name" no-label-float value={{task.name}}></paper-input>
+        </div>
+      </template>
+    </dom-repeat> -->
+
+   <!-- hasta aqui las pruebas-->
+
+    <h2>Formulario de calidad</h2>
+    <form>
+      <div>
+        <p>{{question_1.value}}</p>
+        <div>
+         <!--  <paper-radio-group>
+            <paper-radio-button name="1">1</paper-radio-button>
+            <paper-radio-button name="2">2</paper-radio-button>
+            <paper-radio-button name="3">3</paper-radio-button>
+            <paper-radio-button name="4">4</paper-radio-button>
+            <paper-radio-button name="4">4</paper-radio-button>
+          </paper-radio-group> -->
+          <input name="q1" type="radio" value="1"> 1
+          <input name="q1" type="radio" value="2"> 2
+          <input name="q1" type="radio" value="3"> 3
+          <input name="q1" type="radio" value="4"> 4
+          <input name="q1" type="radio" value="5"> 5
+        </div>
+        <div>
+          <p>¿Desea rellenar el formulario completo?</p>
+          <paper-button  on-click="showRest">Sí</paper-button>
+          <paper-button  on-click="terminar">No</paper-button>
+        </div>
+      </div>
+
+      <dom-if if=[[!showForm]] > 
+        <template>
+          Prueba
+        </template>
+      </dom-if>
+      <dom-repeat  items={{questions}} as="question" filter="showQ" observe="show">
+        <template>
+          <div class="question">
+            <p>{{question.value}}</p>
+            <paper-input label= "task name" no-label-float value={{task.name}}></paper-input>
+          </div>
+        </template>
+      </dom-repeat>
+      <br>
+      <paper-button on-click="enviar">Enviar</paper-button>
+      <paper-button on-click="log">Log</paper-button>
+
+    </form>
+      
+  </template>
+
+  <script>
+      
+    /**
+     * `quality-form`
+     * formulario para recoger opinion de usuario
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+     //define la clase con la que implemento el componente
+    class QualityForm extends Polymer.Element {
+      static get is() { return 'quality-form'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'quality-form'
+          },
+          name:{
+            type: String,
+            value: "Formulario de satisfaccion"
+          },
+          question_1:{
+            type: Object,
+            value: {value:"¿Qué nota le darías al componente?", type: "rate"}
+          },
+          questions:{
+            type: Array,
+            value: [
+/*                     {value:"¿Qué nota le darías al componente?", type: "rate",show:true},
+ */       
+                    {value: "El componente es difícil de usar", type: "opinion",show:true},
+                    {value:"El diseño del componente me parece apropiado",type: "opinion",show:false},
+                    {value:"La información del componente se muestra de manera concisa y clara",type: "opinion",show:false},
+                    {value:"¿Recomendarías este componente?",type:"yon",show:false},
+                    {value:"¿Usarías este componente?",type:"yon",show:false},
+                    {value:"Indique una característica a destacar del componente",type:"text",show:false},
+                    {value:"Indique un defecto a destacar del componente",type:"text",show:false},
+                      ]
+          },
+          opinion:{
+            type: Array,
+            value: [
+              "Completamente en desacuerdo",
+              "En desacuerdo",
+              "Ni de acuerdo ni desacuerdo",
+              "De acuerdo",
+              "Completamente de acuerdo"
+            ]
+          },
+          show:{
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+      isType(question,type){
+        return question.type === type;
+      }
+      showForm(){
+       this.show = true;
+       console.log(this.show)
+       return this.show;
+      }
+      showQ(question){
+        return question.show;
+      }
+      showRest(){
+        this.questions.forEach(element => {
+          element.show=true;
+        });
+      }
+      log(){
+        console.log(this.questions);
+      }
+    }
+    window.customElements.define(QualityForm.is, QualityForm);
+  </script>
+</dom-module>
+
+
+<!-- 
+
+-->
