@@ -24,10 +24,9 @@
     "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
     "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
-    "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0"
+    "paper-radio-button": "PolymerElements/paper-radio-button#2.0.0"
   },
   "devDependencies": {
-    
     "map-component-ti": "Rafata8/tiempoMapa#*",
     "map-component-ti-versionRam": "Rafata8/tiempoMapa#versionRam",
     "map-component-ti-versionIntercon": "Rafata8/tiempoMapa#versionIntercon",
@@ -44,9 +43,6 @@
     "traffic-incidents-versionRam": "Rafata8/traficoMapa#versRam",
     "traffic-incidents-versionIntercon": "Rafata8/traficoMapa#versintercon",
     "traffic-incidents-versionFPS": "Rafata8/traficoMapa#versFPS"
-
-
-
   },
   "subelements": {
     "iron-icons": [
