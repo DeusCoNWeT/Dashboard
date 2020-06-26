@@ -24,7 +24,8 @@
     "polymer-interconnection": "DeusCoNWeT/interconnection#2.0.2",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
     "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
-    "paper-radio-button": "PolymerElements/paper-radio-button#2.0.0"
+    "paper-radio-button": "PolymerElements/paper-radio-button#2.0.0",
+    "paper-button": "PolymerElements/paper-button#2.0.0"
   },
   "devDependencies": {
     "map-component-ti": "Rafata8/tiempoMapa#*",

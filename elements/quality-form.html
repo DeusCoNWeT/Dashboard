@@ -23,63 +23,75 @@
       paper-input{
         display: inline-block;
       }
+
     </style>
 
-  <!--   <h3>{{name}}</h3>
-    <dom-repeat items={{tasks}} as="task" filter="notCompleted" observe="completed">
-      <template >
-        <div class="task">
-          <paper-checkbox checked="{{task.completed}}"></paper-checkbox> 
-          <paper-input label= "task name" no-label-float value={{task.name}}></paper-input>
-        </div>
-      </template>
-    </dom-repeat> -->
+    <h2>{{name}}</h2>
+    <iron-form id="quality_form">
+      <form>
+        <br>
 
-   <!-- hasta aqui las pruebas-->
+       <!--  poner labels??
+        <label id="label-1">{{question_1.value}}</label>
+        <paper-radio-group id="{{question_1.id}}" name="q1" aria-labelledby="label-1"> -->
 
-    <h2>Formulario de calidad</h2>
-    <form>
-      <div>
         <p>{{question_1.value}}</p>
-        <div>
-         <!--  <paper-radio-group>
-            <paper-radio-button name="1">1</paper-radio-button>
-            <paper-radio-button name="2">2</paper-radio-button>
-            <paper-radio-button name="3">3</paper-radio-button>
-            <paper-radio-button name="4">4</paper-radio-button>
-            <paper-radio-button name="4">4</paper-radio-button>
-          </paper-radio-group> -->
-          <input name="q1" type="radio" value="1"> 1
-          <input name="q1" type="radio" value="2"> 2
-          <input name="q1" type="radio" value="3"> 3
-          <input name="q1" type="radio" value="4"> 4
-          <input name="q1" type="radio" value="5"> 5
-        </div>
+        <paper-radio-group  name="q1" attr-for-selected="value">
+          <paper-radio-button name="{{question_1.id}}" value="1">1</paper-radio-button>
+          <paper-radio-button name="{{question_1.id}}" value="2">2</paper-radio-button>
+          <paper-radio-button name="{{question_1.id}}" value="3">3</paper-radio-button>
+          <paper-radio-button name="{{question_1.id}}" value="4">4</paper-radio-button>
+          <paper-radio-button name="{{question_1.id}}" value="5">5</paper-radio-button>
+        </paper-radio-group>
         <div>
           <p>¿Desea rellenar el formulario completo?</p>
-          <paper-button  on-click="showRest">Sí</paper-button>
-          <paper-button  on-click="terminar">No</paper-button>
+          <paper-button raised on-click="showRest">Sí</paper-button>
+          <paper-button raised on-click="hideRest">No</paper-button>
         </div>
-      </div>
+        <br>
+        <div>
+          <template is="dom-if" if="{{show}}" observe="{{show}}">
+            <div>
+              <dom-repeat items="{{questionsA}}" as="question">
+                <template>
+                  <p>{{question.value}}</p>
+                    <paper-radio-group name="{{question.id}}" attr-for-selected="value">
+                      <dom-repeat items={{opinion}} as="op">
+                        <template>
+                          <paper-radio-button name={{question.id}} value="{{op.score}}">{{op.value}}</paper-radio-button><br> 
+                        </template>
+                      </dom-repeat>
+                    </paper-radio-group>
+                </template>
+              </dom-repeat>
+            </div>
+            <div>
+              <dom-repeat items="{{questionsB}}" as="question">
+                <template>
+                  <p>{{question.value}}</p>
+                    <paper-radio-group name="{{question.id}}" attr-for-selected="value"> 
+                      <paper-radio-button name={{question.id}} value="Sí">Sí</paper-radio-button><br> 
+                      <paper-radio-button name={{question.id}} value="No">No</paper-radio-button><br> 
+                    </paper-radio-group>
+                </template>
+              </dom-repeat>
+            </div>
+            <dom-repeat items="{{questionsC}}" as="question">
+              <template>
+                <p>{{question.value}}</p>
+                <textarea name="{{question.id}}" cols="65" rows = "10"></textarea>
+              </template>
+            </dom-repeat>
+          </template>
+        </div>
+        <br>
+        <paper-button type="submit" raised on-click="submit">Enviar</paper-button>
+      </form>
+    </iron-form>
 
-      <dom-if if=[[!showForm]] > 
-        <template>
-          Prueba
-        </template>
-      </dom-if>
-      <dom-repeat  items={{questions}} as="question" filter="showQ" observe="show">
-        <template>
-          <div class="question">
-            <p>{{question.value}}</p>
-            <paper-input label= "task name" no-label-float value={{task.name}}></paper-input>
-          </div>
-        </template>
-      </dom-repeat>
-      <br>
-      <paper-button on-click="enviar">Enviar</paper-button>
-      <paper-button on-click="log">Log</paper-button>
-
-    </form>
+    <!--Pruebas -->
+    <hr>
+    <button on-click="log">Log</button>
       
   </template>
 
@@ -98,66 +110,65 @@
       static get is() { return 'quality-form'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'quality-form'
-          },
           name:{
             type: String,
-            value: "Formulario de satisfaccion"
+            value: "Formulario de satisfacción"
           },
           question_1:{
             type: Object,
-            value: {value:"¿Qué nota le darías al componente?", type: "rate"}
+            value: {value:"¿Qué nota le darías al componente?", id: "q1"}
           },
-          questions:{
+          questionsA:{
             type: Array,
             value: [
-/*                     {value:"¿Qué nota le darías al componente?", type: "rate",show:true},
- */       
-                    {value: "El componente es difícil de usar", type: "opinion",show:true},
-                    {value:"El diseño del componente me parece apropiado",type: "opinion",show:false},
-                    {value:"La información del componente se muestra de manera concisa y clara",type: "opinion",show:false},
-                    {value:"¿Recomendarías este componente?",type:"yon",show:false},
-                    {value:"¿Usarías este componente?",type:"yon",show:false},
-                    {value:"Indique una característica a destacar del componente",type:"text",show:false},
-                    {value:"Indique un defecto a destacar del componente",type:"text",show:false},
+                    {value: "El componente es difícil de usar",id: "q2",label:"l2"},
+                    {value:"El diseño del componente me parece apropiado",id:"q3",label:"l3"},
+                    {value:"La información del componente se muestra de manera concisa y clara",id:"q4",label:"l4"}
                       ]
+          },
+          questionsB:{
+            type: Array,
+            value: [
+            {value:"¿Recomendarías este componente?",type:"yon",id:"q5",label:"l5"},
+            {value:"¿Usarías este componente?",type:"yon",id:"q6",label:"l6"}
+            ]
+          },
+          questionsC:{
+            type: Array,
+            value: [
+            {value:"Indique una característica a destacar del componente",id:"q7",label:"l7"},
+            {value:"Indique un defecto a destacar del componente",id:"q8",label:"l8"}
+            ]
           },
           opinion:{
             type: Array,
             value: [
-              "Completamente en desacuerdo",
-              "En desacuerdo",
-              "Ni de acuerdo ni desacuerdo",
-              "De acuerdo",
-              "Completamente de acuerdo"
+              {value:"Completamente en desacuerdo",score:"1"},
+              {value:"En desacuerdo",score:"2"},
+              {value:"Ni de acuerdo ni desacuerdo",score:"3"},
+              {value:"De acuerdo",score:"4"},
+              {value:"Completamente de acuerdo",score:"5"}
             ]
           },
           show:{
             type: Boolean,
             value: false
-          }
+          },
         };
       }
-      isType(question,type){
-        return question.type === type;
-      }
-      showForm(){
-       this.show = true;
-       console.log(this.show)
-       return this.show;
-      }
-      showQ(question){
-        return question.show;
-      }
       showRest(){
-        this.questions.forEach(element => {
-          element.show=true;
-        });
+        this.show = true;
+      }
+      hideRest(){
+        this.show = false;
       }
       log(){
-        console.log(this.questions);
+        //boton para pruebas
+        // console.log(this.questions);
+        console.log(this.$.quality_form.validate())
+      }
+      submit(){
+        console.log(this.$.quality_form.serializeForm());
       }
     }
     window.customElements.define(QualityForm.is, QualityForm);
@@ -165,6 +176,6 @@
 </dom-module>
 
 
-<!-- 
 
--->
+<!-- {value:"¿Qué nota le darías al componente?", type: "rate",show:true}, -->
+   
